@@ -38,7 +38,14 @@ class _DashboardState extends State<Dashboard> {
                         SizedBox(height: 4),
                         
                       ]),
+                      IconButton(
+                        alignment:Alignment.topRight,
+                        icon:Icon(Icons.person_2_rounded), onPressed: () {  }
+                      ,
+
+
                       
+                      )
                 ]))
       ]),
     );

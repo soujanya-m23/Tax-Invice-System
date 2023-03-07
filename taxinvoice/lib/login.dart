@@ -18,8 +18,10 @@ class _MyLoginState extends State<MyLogin> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         body: Stack(
+          
           children: [
             Container(
+              
               padding: EdgeInsets.only(left: 35, top: 130),
               child: Text(
                 'Welcome\nBack',

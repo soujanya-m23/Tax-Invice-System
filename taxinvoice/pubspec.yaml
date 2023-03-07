@@ -65,7 +65,7 @@ flutter:
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
       - assets/invoice.jpg  
-      - assets/login.png
+      - assets/login1.jpg
       - assets/e-invoice.png
       - assets/register.png
 
