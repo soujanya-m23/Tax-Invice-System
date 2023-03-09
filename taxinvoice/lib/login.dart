@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taxinvoice/Dashboard.dart';
+import 'package:taxinvoice/Dashboard1.dart';
+import 'package:taxinvoice/Dashboard1.dart';
 import 'package:taxinvoice/signup.dart';
 
 class MyLogin extends StatefulWidget {
@@ -78,7 +79,7 @@ class _MyLoginState extends State<MyLogin> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Dashboard()));
+                                  builder: (context) =>MyDashboard()));
                         },
                         icon: Icon(Icons.arrow_forward_sharp),
                       ),

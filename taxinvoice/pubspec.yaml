@@ -68,13 +68,17 @@ flutter:
       - assets/LOGIN.jpg
       - assets/e-invoice.png
       - assets/SIGNUP.jpg
+      - assets/image.jpg
+      - assets/icon1.jpeg
+      - assets/debit.png
+
 
   fonts:
      - family: OpenSans Regular
        fonts:
         - asset: assets/fonts/open-sans/OpenSans-Regular.ttf
         - asset: assets/fonts/open-sans/OpenSans-Italic.ttf
-           
+        - asset: assets/fonts/OpenSans-BoldItalic.ttf  
   #   - family: Trajan Pro
   #     fonts:
   #       - asset: fonts/TrajanPro.ttf

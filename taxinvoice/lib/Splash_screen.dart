@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxinvoice/login.dart';
 import 'package:taxinvoice/navigation.dart';
-import 'Dashboard.dart';
+import 'Dashboard1.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -50,7 +50,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     Timer(Duration(seconds: 2), () {
       Navigator.pushReplacement(
-          context, MaterialPageRoute(builder: (context) => MyLogin()));
+          context, MaterialPageRoute(builder: (context) => MyDashboard()));
     });
   }
 
