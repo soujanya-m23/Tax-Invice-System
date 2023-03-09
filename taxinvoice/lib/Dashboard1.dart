@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taxinvoice/login.dart';
 
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
@@ -16,9 +17,15 @@ class _MyDashboardState extends State<MyDashboard> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
+    
+    
+
+        
+      backgroundColor: Colors.lightBlueAccent,
         body: Stack(children: <Widget>[
+          
       Container(
-        height: size.height * .3,
+        height: size.height * 2,
         decoration: BoxDecoration(
             image: DecorationImage(
                 alignment: Alignment.topCenter,
@@ -49,7 +56,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: <Widget>[
-                      SizedBox( 
+                      SizedBox(
                         height: 0.1,
                       ),
                       Text(
@@ -57,11 +64,15 @@ class _MyDashboardState extends State<MyDashboard> {
                         style: TextStyle(
                             fontWeight: FontWeight.bold,
                             color: Colors.white,
+                            fontFamily: 'OpenSans',
+                            fontStyle: FontStyle.normal,
                             letterSpacing: 1.5),
                       ),
                       Text('9880438931',
                           style: TextStyle(
                               fontWeight: FontWeight.bold,
+                              fontFamily: 'OpenSans',
+                            fontStyle: FontStyle.normal,
                               color: Colors.white,
                               letterSpacing: 1.5)),
                     ],
@@ -69,48 +80,92 @@ class _MyDashboardState extends State<MyDashboard> {
                 ],
               ),
             ),
-            SizedBox( 
-                height: 50
-            ),
+            SizedBox(height: 50),
             Expanded(
-              child: GridView.count(
-                crossAxisCount: 2,
-                mainAxisSpacing: 10,
-                children: <Widget> [ 
-                  InkWell(
-    child: Card(child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-        Image.asset('assets/icon1.jpeg'),
-        
-        Text('Quotation')
-  ])),
-    onTap: () { 
-        print("Click event on Container"); 
-    },
+              
+                child: GridView.count(
+                  
+              crossAxisCount: 2,
+              mainAxisSpacing: 10,
+              children: <Widget>[
+                InkWell(
+                  child: Card(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                        Image.asset('assets/icon1.jpeg'),
+                        Text('Quotation',style: TextStyle(fontWeight: FontWeight.bold),)
+                      ])),
+                  onTap: () {
+                    
+                  },
+                ),
+                InkWell(
+                  child: Card(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                        Image.asset('assets/invoice.jpg'),
+                        Text('Invoice',style: TextStyle(fontWeight: FontWeight.bold)),
+                      ])),
+                  onTap: () {
+                    
+                  },
+                ),
+                InkWell(
+                  child: Card(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                        Image.asset('assets/debit.png',scale: 3.2),
+                        SizedBox( 
+                          height: 15,
+                        ),
+                        Text('Debit',style: TextStyle(fontWeight: FontWeight.bold))
+                      ])),
+                  onTap: () {
+                    
+                  },
+                ),
+                InkWell(
+                  child: Card(
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                        Image.asset('assets/report.png',scale: 5.5,),
+                        SizedBox( 
+                          height: 22,
+                        ),
+                        Text('Report',style: TextStyle(fontWeight: FontWeight.bold))
+                      ])),
+                  onTap: () {
+                   Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => MyLogin()));
+                  },
+                ),
+
+
+])),
+GestureDetector(
+  onTap: () {},
+  child: Container(
+    width: 200,
+    height: 50,
+    decoration: BoxDecoration(
+      borderRadius: BorderRadius.circular(50),
+      color: Colors.blueAccent,
+    ),
+    child: Center(child: Text('Home')),
+  ),
 ),
-// Card(  
-//   child: Column(
-//     mainAxisAlignment: MainAxisAlignment.center,
-//     children: <Widget>[
-//         Image.asset('assets/icon1.jpeg'),
-        
-//         Text('Quotation')
-//   ]),
-// ),
-Card(  
-  child: Column(
-    mainAxisAlignment: MainAxisAlignment.center,
-    children: <Widget>[
-        Image.asset('assets/invoice.jpg'),
-        Text('Invoice')
-  ]),
-)
-                ],
-                ) )
+
+  
+
+              ],
+            ))
           ],
         ),
-      )
-    ]));
+      );
+    
   }
 }

@@ -71,6 +71,7 @@ flutter:
       - assets/image.jpg
       - assets/icon1.jpeg
       - assets/debit.png
+      - assets/report.png
 
 
   fonts:
