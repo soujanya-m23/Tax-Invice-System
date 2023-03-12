@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:taxinvoice/login.dart';
-import 'package:taxinvoice/navigation.dart';
+
 import 'Dashboard1.dart';
 
 class SplashScreen extends StatefulWidget {

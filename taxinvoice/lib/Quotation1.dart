@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-class InvoiceForm extends StatefulWidget {
+class QuotationTaxInvoiceForm extends StatefulWidget {
   @override
-  _InvoiceFormState createState() =>
-      _InvoiceFormState();
+  _QuotationTaxInvoiceFormState createState() =>
+      _QuotationTaxInvoiceFormState();
 }
 
-class _InvoiceFormState extends State<InvoiceForm> {
+class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
   final _formKey = GlobalKey<FormState>();
-  late String _QuotationNumber;
   late String _companyName;
   late String _companyAddress;
   late String _companyPhone;
@@ -43,21 +42,6 @@ class _InvoiceFormState extends State<InvoiceForm> {
                   ),
                 ),
                 SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            borderSide: BorderSide(
-                                color: Colors.white)),
-                      hintText: 'Enter the Quotation Number',
-                      labelText: 'Quotation Number',
-                      
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter Quotation Number' : null,
-                  onSaved: (value) => _QuotationNumber = value!,
-                ),
                 TextFormField(
                   decoration: InputDecoration(
                       focusedBorder: OutlineInputBorder(
