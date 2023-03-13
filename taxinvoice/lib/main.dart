@@ -2,8 +2,12 @@
 // import 'dart:js';
 
 import 'package:flutter/material.dart';
+import 'package:taxinvoice/Dashboard1.dart';
+import 'package:taxinvoice/Quotation1.dart';
 
 import 'Splash_screen.dart';
+import 'debit.dart';
+import 'invoice.dart';
 import 'login.dart';
 
 void main() {
@@ -15,7 +19,7 @@ Widget build(BuildContext context){
   
   return new MaterialApp(
     title: 'splashscreen',
-    home: SplashScreen(),
+    home: MyDashboard(),
     
   
   );

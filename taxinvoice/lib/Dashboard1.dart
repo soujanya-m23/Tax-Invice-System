@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:taxinvoice/Quotation1.dart';
+import 'package:taxinvoice/debit.dart';
 import 'package:taxinvoice/invoice.dart';
 import 'package:taxinvoice/login.dart';
 
@@ -78,7 +80,10 @@ class _MyDashboardState extends State<MyDashboard> {
                 ),
               ),
               SizedBox(height: 50),
+              Text("Dashboard",style: TextStyle(fontFamily: 'OpenSans',fontWeight: FontWeight.bold,fontSize: 40),),
+              SizedBox(height: 50),
               Expanded(
+                
                   child: GridView.count(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
@@ -88,6 +93,7 @@ class _MyDashboardState extends State<MyDashboard> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
+                                
                             Image.asset('assets/icon1.jpeg'),
                             Text(
                               'Quotation',
@@ -96,7 +102,7 @@ class _MyDashboardState extends State<MyDashboard> {
                           ])),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyLogin()));
+                            MaterialPageRoute(builder: (context) => QuotationTaxInvoiceForm()));
                       },
                     ),
                     InkWell(
@@ -112,7 +118,7 @@ class _MyDashboardState extends State<MyDashboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => MyLogin()));
+                                builder: (context) => InvoiceForm()));
                       },
                     ),
                     InkWell(
@@ -129,7 +135,7 @@ class _MyDashboardState extends State<MyDashboard> {
                           ])),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyLogin()));
+                            MaterialPageRoute(builder: (context) => DebitForm()));
                       },
                     ),
                     InkWell(
@@ -162,7 +168,7 @@ class _MyDashboardState extends State<MyDashboard> {
                     borderRadius: BorderRadius.circular(50),
                     color: Colors.blueAccent,
                   ),
-                  child: Center(child: Text('Home')),
+                  child: Center(child: Text('Home',style: TextStyle(fontSize: 30),)),
                 ),
               ),
             ],
