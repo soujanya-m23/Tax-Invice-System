@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:snippet_coder_utils/FormHelper.dart';
 import 'package:taxinvoice/Dashboard1.dart';
 
 class QuotationTaxInvoiceForm extends StatefulWidget {
+  QuotationTaxInvoiceForm() {}
   @override
   _QuotationTaxInvoiceFormState createState() =>
       _QuotationTaxInvoiceFormState();
@@ -9,6 +11,8 @@ class QuotationTaxInvoiceForm extends StatefulWidget {
 
 class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
   final _formKey = GlobalKey<FormState>();
+  List<dynamic> _Category = [];
+  String? countryId;
   late String _companyName;
   late String _companyAddress;
   late String _companyPhone;
@@ -20,6 +24,13 @@ class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
   late String _bankAddress;
   late String _bankAccountNumber;
   late String _bankIFSCCode;
+
+  @override
+  void initState() {
+    super.initState();
+    this._Category.add({"id": 1, "label": "Hardware"});
+    this._Category.add({"id": 2, "label": "Software"});
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +81,7 @@ class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
                           borderRadius: BorderRadius.circular(10))),
                   validator: (value) =>
                       value!.isEmpty ? 'Please enter customer name' : null,
-                  onSaved: (value) => _customerName = value!,
+                  onSaved: (value) => _customerAddress = value!,
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
@@ -96,6 +107,46 @@ class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
                     fontWeight: FontWeight.bold,
                     fontSize: 16.0,
                   ),
+                ),
+                Column(children: [
+                  SizedBox(height: 16.0),
+                  Column(
+                    children: [
+                      
+                      
+                      FormHelper.dropDownWidget(context, "Select Category",
+                          this.countryId, this._Category, (onChanged) {
+                        this.countryId = onChanged;
+                        icon:Icon(Icons.category);
+                        print("Selected Category,$onChanged");
+                      }, (onValidate) {
+                        if (onValidate == null) {
+                          return 'please select category';
+                        }
+                        return null;
+                      },
+                          borderColor: Theme.of(context).primaryColor,
+                          borderFocusColor: Theme.of(context).primaryColor,
+                          borderRadius: 10,
+                          optionValue: "id",
+                          optionLabel: "label"),
+                    ],
+                  )
+                ]),
+                SizedBox(height: 16,),
+                TextFormField(
+                  decoration: InputDecoration(
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          borderSide: BorderSide(color: Colors.black)),
+                      hintText: 'Enter the Quotation Number',
+                      labelText: 'Quotation Number',
+                      icon: Icon(Icons.receipt_long_rounded),
+                      border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(10))),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Please enter Quotation Number' : null,
+                  onSaved: (value) => _customerName = value!,
                 ),
                 SizedBox(height: 16.0),
                 TextFormField(
@@ -215,25 +266,28 @@ class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
                 ),
                 SizedBox(height: 32.0),
                 SizedBox(height: 32.0),
-                Row(
-                  children:[ 
-                    IconButton(onPressed: () { 
-                      Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyDashboard()));
-                    }, icon: Icon(Icons.arrow_back_ios_outlined)),
-                    SizedBox( 
-                      width: 200,
-                    ),
-                    Center(
+                Row(children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyDashboard()));
+                      },
+                      icon: Icon(Icons.arrow_back_ios_outlined)),
+                  SizedBox(
+                    width: 200,
+                  ),
+                  Center(
                     child: CircleAvatar(
                       child: IconButton(
                         onPressed: () {
                           ;
                           if (_formKey.currentState!.validate()) {
                             _formKey.currentState!.save();
-                  
+
                             //TODO: Add your code to save form data to database or send data to server
-                  
+
                             ScaffoldMessenger.of(context).showSnackBar(
                               SnackBar(
                                 content: Text('Form data saved successfully.'),
@@ -245,10 +299,9 @@ class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
                       ),
                     ),
                   ),
-                
-                //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
-                  ]
-                )
+
+                  //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
+                ])
               ],
             ),
           ),

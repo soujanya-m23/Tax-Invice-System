@@ -4,7 +4,9 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:taxinvoice/Quotation1.dart';
 import 'package:taxinvoice/login.dart';
+import 'package:taxinvoice/report.dart';
 
 import 'Dashboard1.dart';
 
@@ -39,6 +41,7 @@ class _SplashScreenState extends State<SplashScreen> {
           style: TextStyle(fontFamily: 'OpenSans',fontSize: 40,fontWeight: FontWeight.bold,fontStyle: FontStyle.normal,color: Colors.white ,backgroundColor: Colors.black),
         
         ),
+        
         ),
  //Open Sans font
 
@@ -46,6 +49,7 @@ class _SplashScreenState extends State<SplashScreen> {
     ),
   )
   );
+  //final description = Text ("Stay organized and in control of your finances easy-to-use ",style: TextStyle(fontFamily: "OpenSans",fontSize: 24,color:Colors.white),);
   @override
   void initState() {
     // TODO: implement initState
@@ -60,6 +64,7 @@ class _SplashScreenState extends State<SplashScreen> {
     return Scaffold(
         body: Stack(fit: StackFit.expand, children: <Widget>[
       background,
+      //description
     ]));
 
     // )),

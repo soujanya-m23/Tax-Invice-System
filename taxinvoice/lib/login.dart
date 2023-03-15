@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:taxinvoice/Dashboard1.dart';
-import 'package:taxinvoice/Dashboard1.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:taxinvoice/signup.dart';
 
 class MyLogin extends StatefulWidget {
@@ -10,6 +10,14 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  TextEditingController phoneNumberController = TextEditingController();
+
+  bool validatePhoneNumber(String value) {
+    String pattern = r'(^(\+91|0)?[6789]\d{9}$)';
+    RegExp regExp = new RegExp(pattern);
+    return regExp.hasMatch(value);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -39,12 +47,40 @@ class _MyLoginState extends State<MyLogin> {
                   left: 35),
               child: Column(children: [
                 TextField(
+                  controller: phoneNumberController,
                   decoration: InputDecoration(
                       fillColor: Colors.grey.shade100,
                       filled: true,
-                      hintText: 'Email',
+                      hintText: 'Phone ',
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          if (validatePhoneNumber(phoneNumberController.text)) {
+                            // valid phone number
+                            Fluttertoast.showToast(
+                                msg: 'Valid phone number',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.green,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          } else {
+                            // invalid phone number
+                            Fluttertoast.showToast(
+                                msg: 'Invalid phone number',
+                                toastLength: Toast.LENGTH_SHORT,
+                                gravity: ToastGravity.BOTTOM,
+                                timeInSecForIosWeb: 1,
+                                backgroundColor: Colors.red,
+                                textColor: Colors.white,
+                                fontSize: 16.0);
+                          }
+                        },
+                        icon: Icon(Icons.check),
+                      ),
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(10))),
+                  keyboardType: TextInputType.phone,
                 ),
                 SizedBox(
                   height: 30,
@@ -79,7 +115,7 @@ class _MyLoginState extends State<MyLogin> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) =>MyDashboard()));
+                                  builder: (context) => MyDashboard()));
                         },
                         icon: Icon(Icons.arrow_forward_sharp),
                       ),

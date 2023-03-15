@@ -3,7 +3,9 @@ import 'package:taxinvoice/Quotation1.dart';
 import 'package:taxinvoice/debit.dart';
 import 'package:taxinvoice/invoice.dart';
 import 'package:taxinvoice/login.dart';
-
+//import 'package:taxinvoice/navigation.dart';
+import 'package:taxinvoice/homescreen.dart';
+import 'package:taxinvoice/report.dart';
 class MyDashboard extends StatefulWidget {
   const MyDashboard({super.key});
 
@@ -94,10 +96,13 @@ class _MyDashboardState extends State<MyDashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 
-                            Image.asset('assets/icon1.jpeg'),
+                            Image.asset('assets/icon1.jpeg',scale: 6,),
+                            SizedBox(
+                              height: 15,
+                            ),
                             Text(
                               'Quotation',
-                              style: TextStyle(fontWeight: FontWeight.bold),
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23.0,color: Colors.blueGrey),
                             )
                           ])),
                       onTap: () {
@@ -110,9 +115,14 @@ class _MyDashboardState extends State<MyDashboard> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                            Image.asset('assets/invoice.jpg'),
+                            Image.asset('assets/invoice.jpg',
+                            scale:6.5,
+                            ),
+                            SizedBox(
+                              height: 20,
+                            ),
                             Text('Invoice',
-                                style: TextStyle(fontWeight: FontWeight.bold)),
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23.0,color: Colors.blueGrey)),
                           ])),
                       onTap: () {
                         Navigator.push(
@@ -126,12 +136,12 @@ class _MyDashboardState extends State<MyDashboard> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                            Image.asset('assets/debit.png', scale: 3.2),
+                            Image.asset('assets/debit.png', scale: 5.3),
                             SizedBox(
-                              height: 15,
+                              height: 30,
                             ),
                             Text('Debit',
-                                style: TextStyle(fontWeight: FontWeight.bold))
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.blueGrey))
                           ])),
                       onTap: () {
                         Navigator.push(context,
@@ -144,23 +154,26 @@ class _MyDashboardState extends State<MyDashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                             Image.asset(
-                              'assets/report.png',
-                              scale: 5.5,
+                              'assets/track.jpg',
+                              scale: 6.5,
                             ),
                             SizedBox(
-                              height: 22,
+                              height: 15,
                             ),
-                            Text('Report',
-                                style: TextStyle(fontWeight: FontWeight.bold))
+                            Text('Track',
+                                style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.blueGrey))
                           ])),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyLogin()));
+                            MaterialPageRoute(builder: (context) => SearchPage()));
                       },
                     ),
                   ])),
               GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => MyLogin()));
+                },
                 child: Container(
                   width: 200,
                   height: 50,
