@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:project/customer.dart';
 import 'package:project/report.dart';
+import 'package:project/transaction%20details.dart';
 
 import 'debit.dart';
 import 'invoice.dart';
@@ -8,7 +10,7 @@ import 'login.dart';
 
 import 'report.dart';
 
-import 'Quotation1.dart';
+import 'company.dart';
 import 'debit.dart';
 import 'invoice.dart';
 import 'login.dart';
@@ -87,12 +89,11 @@ class _MyDashboardState extends State<MyDashboard> {
                   ],
                 ),
               ),
-              SizedBox(height: 50),
-              Text("Dashboard",style: TextStyle(fontFamily: 'OpenSans',fontWeight: FontWeight.bold,fontSize: 40),),
-              SizedBox(height: 50),
+              SizedBox(height: 25),
+              Text("Dashboard",style: TextStyle(fontFamily: 'OpenSans',fontWeight: FontWeight.bold,fontSize: 30),),
+              SizedBox(height: 25),
               Expanded(
-                
-                  child: GridView.count(
+                child: GridView.count(
                       crossAxisCount: 2,
                       mainAxisSpacing: 10,
                       children: <Widget>[
@@ -102,18 +103,59 @@ class _MyDashboardState extends State<MyDashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                                 
-                            Image.asset('assets/icon1.jpeg',scale: 6,),
+                            Image.asset('assets/company.jpg',scale: 12,),
                             SizedBox(
-                              height: 15,
+                              height: 18,
                             ),
                             Text(
-                              'Quotation',
+                              'Company',
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0,color: Colors.blueGrey),
+                            )
+                          ])),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CompanyForm()));
+                      },
+                    ),
+                    InkWell(
+                      child: Card(
+                        color: Colors.white,
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                
+                            Image.asset('assets/customer.png',scale: 8,),
+                            SizedBox(
+                              height: 22,
+                            ),
+                            Text(
+                              'Customer',
+                              style: TextStyle(fontWeight: FontWeight.bold,fontSize: 25.0,color: Colors.blueGrey),
+                            )
+                          ])),
+                      onTap: () {
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => CustomerForm()));
+                      },
+                    ),
+                    InkWell(
+                      child: Card(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                
+                            Image.asset('assets/bank.jpg',scale: 9,),
+                            SizedBox(
+                              height: 20,
+                            ),
+                            Text(
+                              'Bank',
                               style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23.0,color: Colors.blueGrey),
                             )
                           ])),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => QuotationTaxInvoiceForm()));
+                            MaterialPageRoute(builder: (context) => TransactionDetailForm()));
                       },
                     ),
                     InkWell(
@@ -122,10 +164,10 @@ class _MyDashboardState extends State<MyDashboard> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
                             Image.asset('assets/invoice.jpg',
-                            scale:6.5,
+                            scale:7.5,
                             ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
                             Text('Invoice',
                                 style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23.0,color: Colors.blueGrey)),
@@ -175,19 +217,20 @@ class _MyDashboardState extends State<MyDashboard> {
                       },
                     ),
                   ])),
+                  SizedBox(height: 20,),
               GestureDetector(
                 onTap: () {
                   Navigator.push(context,
                             MaterialPageRoute(builder: (context) => MyLogin()));
                 },
                 child: Container(
-                  width: 200,
+                  width: 150,
                   height: 50,
                   decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(25),
                     color: Colors.blueAccent,
                   ),
-                  child: Center(child: Text('Home',style: TextStyle(fontSize: 30),)),
+                  child: Center(child: Text('Home',style: TextStyle(fontSize: 20),)),
                 ),
               ),
             ],

@@ -1,10 +1,14 @@
 import 'dart:async';
+import 'package:sqflite/sqlite_api.dart';
+
 import 'customer.dart';
 import 'package:flutter/foundation.dart';
 import 'package:sqflite/sqflite.dart' as sql;
+import 'package:project/modalCustomer.dart';
+import 'modalCompany.dart';
+import 'company.dart';
+import 'package:project/modalTransaction.dart';
 
-import 'modal.dart';
-import 'Quotation1.dart';
 
 class DatabaseHelper {
   static Future<void> createTables(sql.Database database) async {
@@ -14,12 +18,11 @@ class DatabaseHelper {
         coname TEXT,
         coadd TEXT,
         cophone TEXT,
-        gstnum TEXT,
-        qnum TEXT,
-        qdate TEXT
-        
-      )
+        email TEXT,
+        contactphone TEXT
+        )
     """);
+    //CUSTOMER TABLE---------------------------------------------------
 
     await database.execute(""" 
       CREATE TABLE customers(
@@ -27,6 +30,14 @@ class DatabaseHelper {
         cuname TEXT,
         cuadd TEXT,
         cuphone TEXT,
+        cuemail TEXT
+        
+      )
+    """);
+    //Transaction table----------------------------------------------------------
+    await database.execute(""" 
+      CREATE TABLE bank_details(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,  
         bname TEXT,
         badd TEXT,
         bacc TEXT,
@@ -66,9 +77,11 @@ return List.generate(maps.length, (i) {
         coname: maps[i]['coname'],
         coadd: maps[i]['coadd'],
         cophone: maps[i]['cophone'],
-        gstnum: maps[i]['gstnum'],
-        qnum: maps[i]['qnum'],
-        qdate: maps[i]['qdate'],
+        email: maps[i]['email'],
+        contactphone: maps[i]['contactphone'],
+        // gstnum: maps[i]['gstnum'],
+        // qnum: maps[i]['qnum'],
+        // qdate: maps[i]['qdate'],
         
       );
     });
@@ -98,7 +111,7 @@ static Future<int> deleteUser(int id) async {
 
 
 
-
+//Customer details......................................................
 
 
 
@@ -119,10 +132,8 @@ static Future<List<Customer>> getCustomers() async {
       cuname: maps[i]['cuname'],
       cuadd: maps[i]['cuadd'],
       cuphone: maps[i]['cuphone'],
-      bname: maps[i]['bname'],
-      badd: maps[i]['badd'],
-      bacc: maps[i]['bacc'],
-      bifsc: maps[i]['bifsc'],
+      cuemail: maps[i]['cuemail'],
+     
     );
   });
 
@@ -149,6 +160,41 @@ static Future<int> deleteCustomer(int id1) async {
     whereArgs: [id1],
   );
 }
+
+//Transaction database operations------------------------------------
+
+static Future<int> addTransaction(Transactions transaction) async {
+    // insert data to table
+    final dbClient = await db();
+    return dbClient.insert('bank_details', transaction.toMap(),
+        conflictAlgorithm:
+            sql.ConflictAlgorithm.replace); // add conflictAlgorithm
+  }
+
+  static Future<List<Transactions>> getDetails() async {
+    //fetching data to display details.....
+    final dbClient = await db();
+    final List<Map<String, dynamic>> maps = await dbClient.query('bank_details');
+
+
+
+return List.generate(maps.length, (i) {
+      return Transactions(
+        id2: maps[i]['id'],
+        bname: maps[i]['bname'],
+      badd: maps[i]['badd'],
+      bacc: maps[i]['bacc'],
+      bifsc: maps[i]['bifsc'],
+ 
+        
+      );
+    });
+  }
+
+ 
+
+
+
 
 
 

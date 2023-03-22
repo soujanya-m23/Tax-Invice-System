@@ -5,9 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:project/customer.dart';
 import 'DashBoard.dart';
 
+import 'item.dart';
 import 'report.dart';
 
-import 'Quotation1.dart';
+import 'company.dart';
 import 'Splash_screen.dart';
 import 'debit.dart';
 import 'invoice.dart';
@@ -22,7 +23,7 @@ Widget build(BuildContext context){
   
   return new MaterialApp(
     title: 'splashscreen',
-    home: CustomerForm(),
+    home : CustomerForm(),
     
   
   );

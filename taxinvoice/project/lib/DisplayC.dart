@@ -4,7 +4,7 @@ import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:project/customer.dart';
 
 import 'db_helper.dart';
-import 'modal.dart';
+import 'modalCustomer.dart';
 
 class DisplayCustomer extends StatefulWidget {
   const DisplayCustomer({super.key});
@@ -61,7 +61,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
               // title: Text(user.coname),
               // subtitle: Text('${user.coadd}/n, ${user.cophone}/n,${user.qnum}/n,${user.qdate}/n,${user.gstnum}/n'),
               title: Card(
-                color: Colors.lightBlue,
+                color: Color.fromARGB(255, 240, 211, 221),
                 child: Column(
                 children: [
                   SizedBox(height: 30,),
@@ -107,55 +107,17 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 
                   SizedBox(height: 30),
                 
-                  Column(
+                Column(
                     children: [
-                      Text('Bank Name:',style: TextStyle(
+                      Text('Customer Email:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.bname}',style:TextStyle(fontSize: 20)),
+                      Text('${user1.cuemail}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
-                  
-                  SizedBox(height: 30),
-                
-                  Column(
-                    children: [
-                      Text('Bank Address:',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Text('${user1.badd}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                
-                  SizedBox(height: 30),
-                
-                  Column(
-                    children: [
-                      Text('Bank Account number',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Text('${user1.bacc}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
-                
-                  SizedBox(height: 30),
-
-                  Column(
-                    children: [
-                      Text('Bank IFSC number',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Text('${user1.bifsc}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
+                 
                 
                   SizedBox(height: 50),
                 

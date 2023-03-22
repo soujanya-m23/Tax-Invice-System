@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'db_helper.dart';
-import 'Quotation1.dart';
-import 'modal.dart';
+import 'company.dart';
+import 'modalCompany.dart';
 
 class Displaydatabase extends StatefulWidget {
   const Displaydatabase({super.key});
@@ -41,7 +41,7 @@ class _DisplaydatabaseState extends State<Displaydatabase> {
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => QuotationTaxInvoiceForm(user: user),
+                    builder: (context) => CompanyForm(user: user),
                   ),
                 );
                 if (result != null) {
@@ -54,7 +54,7 @@ class _DisplaydatabaseState extends State<Displaydatabase> {
               // title: Text(user.coname),
               // subtitle: Text('${user.coadd}/n, ${user.cophone}/n,${user.qnum}/n,${user.qdate}/n,${user.gstnum}/n'),
               title: Card(
-                color: Colors.lightBlue,
+                color: Color.fromARGB(255, 236, 192, 206),
                 child: Column(
                 children: [
                   SizedBox(height: 30,),
@@ -65,10 +65,15 @@ class _DisplaydatabaseState extends State<Displaydatabase> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
+                    ]),
                       SizedBox(width: 10),
-                      Text('${user.coname}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
+                      Row(
+                        children: [
+                          Text('${user.coname}',style:TextStyle(fontSize: 20)),
+                        ],
+                      ),
+                    
+                  
                 
                   SizedBox(height: 30),
                 
@@ -78,11 +83,15 @@ class _DisplaydatabaseState extends State<Displaydatabase> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
-                
+                    ]),
                       SizedBox(width: 20),
-                      Text('${user.coadd}',style:TextStyle(fontSize: 20)),
-                   ],
-                  ),
+                      Row(
+                        children: [
+                          Text('${user.coadd}',style:TextStyle(fontSize: 20)),
+                        ],
+                      ),
+                   
+                  
                 
                   SizedBox(height: 30),
                 
@@ -92,49 +101,63 @@ class _DisplaydatabaseState extends State<Displaydatabase> {
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
+                    ]),
                       SizedBox(width: 20),
-                      Text('${user.cophone}',style:TextStyle(fontSize: 20),),
-                    ],
-                  ),
+                      Row(
+                        children: [
+                          Text('${user.cophone}',style:TextStyle(fontSize: 20),),
+                        ],
+                      ),
+                    
+                  
                 
                   SizedBox(height: 30),
                 
                   Column(
                     children: [
-                      Text('GST Number:',style: TextStyle(
+                      Text('Comapny Email:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
-                  color: Colors.black,),),
+                  color: Colors.black,),),]),
                       SizedBox(width: 20),
-                      Text('${user.gstnum}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
+                      Row(
+                        children: [
+                          Text('${user.email}',style:TextStyle(fontSize: 20)),
+                        ],
+                      ),
+                    
+                  
                   
                   SizedBox(height: 30),
                 
                   Column(
                     children: [
-                      Text('Quotation Number:',style: TextStyle(
+                      Text('Additional Contact Phone:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
+                    ]),
                       SizedBox(width: 20),
-                      Text('${user.qnum}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
+                      Row(
+                        children: [
+                          Text('${user.contactphone}',style:TextStyle(fontSize: 20)),
+                        ],
+                      ),
+                    
+                  
                 
-                  SizedBox(height: 30),
+                  // SizedBox(height: 30),
                 
-                  Column(
-                    children: [
-                      Text('Quotation Date:',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Text('${user.qdate}',style:TextStyle(fontSize: 20)),
-                    ],
-                  ),
+                  // Column(
+                  //   children: [
+                  //     Text('Quotation Date:',style: TextStyle(
+                  // fontWeight: FontWeight.bold,
+                  // fontSize: 20.0,
+                  // color: Colors.black,),),
+                  //     SizedBox(width: 20),
+                  //     Text('${user.qdate}',style:TextStyle(fontSize: 20)),
+                  //   ],
+                  // ),
                 
                   SizedBox(height: 50),
                 

@@ -2,38 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:project/DisplayC.dart';
 import 'package:project/customer.dart';
 import 'displayQ.dart';
-import 'package:snippet_coder_utils/FormHelper.dart';
+
 import 'package:table_calendar/table_calendar.dart';
 import 'DashBoard.dart';
 import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
-import 'modal.dart';
+import 'modalCompany.dart';
 
 import 'DashBoard.dart';
 import 'db_helper.dart';
 
-class QuotationTaxInvoiceForm extends StatefulWidget {
+class CompanyForm extends StatefulWidget {
 
   //changes
   final Company? user;
-  const QuotationTaxInvoiceForm({Key? key, this.user}) : super(key: key);
+  const CompanyForm({Key? key, this.user}) : super(key: key);
 
   @override
   _QuotationTaxInvoiceFormState createState() =>
       _QuotationTaxInvoiceFormState();
 }
 
-class _QuotationTaxInvoiceFormState extends State<QuotationTaxInvoiceForm> {
+class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
   final _formKey = GlobalKey<FormState>();
 
-  //List<dynamic> _Category = [];
-  //String? countryId;
+
   TextEditingController _companyName = TextEditingController();
   TextEditingController _companyAddress = TextEditingController();
   TextEditingController _companyPhone = TextEditingController();
-  TextEditingController _gstnum = TextEditingController();
-  TextEditingController _quotationumController = TextEditingController();
-  TextEditingController _quotationDateController = TextEditingController();
+ TextEditingController _email = TextEditingController();
+  // TextEditingController _quotationumController = TextEditingController();
+  // TextEditingController _quotationDateController = TextEditingController();
+  TextEditingController _contactphone = TextEditingController();
+  
   
   
   
@@ -62,10 +63,10 @@ DateTime _focusedDate = DateTime.now();
     _companyName = TextEditingController(text: widget.user?.coname ?? '');
     _companyAddress = TextEditingController(text: widget.user?.coadd ?? '');
     _companyPhone =TextEditingController(text: widget.user?.cophone ?? '');
-    _gstnum = TextEditingController(text: widget.user?.gstnum ?? '');
-    _quotationumController =TextEditingController(text: widget.user?.qnum ?? '');
-    _quotationDateController =TextEditingController(text: widget.user?.qdate ?? '');
-
+    _email = TextEditingController(text: widget.user?.email ?? '');
+    // _quotationumController =TextEditingController(text: widget.user?.qnum ?? '');
+    // _quotationDateController =TextEditingController(text: widget.user?.qdate ?? '');
+    _contactphone =TextEditingController(text: widget.user?.coname ?? '');
 
     //-----------------------------------------------------------
     // this._Category.add({"id": 1, "label": "Hardware"});
@@ -78,9 +79,11 @@ DateTime _focusedDate = DateTime.now();
     _companyName.dispose();
     _companyAddress.dispose();
     _companyPhone.dispose();
-    _gstnum.dispose();
-    _quotationumController.dispose();
-    _quotationDateController.dispose();
+    // _gstnum.dispose();
+    // _quotationumController.dispose();
+    // _quotationDateController.dispose();
+     _contactphone.dispose();
+     _email.dispose();
     
     super.dispose();
   }
@@ -91,9 +94,12 @@ DateTime _focusedDate = DateTime.now();
         coname: _companyName.text,
         coadd: _companyAddress.text,
         cophone: _companyPhone.text, 
-        gstnum: _gstnum.text,
-        qnum: _quotationumController.text, 
-        qdate: _quotationDateController.text, 
+        email: _email.text,
+        contactphone: _contactphone.text,
+
+        //gstnum: _gstnum.text,
+        // qnum: _quotationumController.text, 
+        // qdate: _quotationDateController.text, 
         
         );
         bool shouldProceed = await showDialog(
@@ -134,9 +140,11 @@ DateTime _focusedDate = DateTime.now();
           _companyName.clear();
           _companyAddress.clear();
           _companyPhone.clear();
-          _gstnum.clear();
-          _quotationumController.clear();
-          _quotationDateController.clear();
+          _email.clear();
+          _contactphone.clear();
+          //_gstnum.clear();
+          // _quotationumController.clear();
+          // _quotationDateController.clear();
         
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -159,9 +167,12 @@ DateTime _focusedDate = DateTime.now();
           _companyName.clear();
           _companyAddress.clear();
           _companyPhone.clear();
-          _gstnum.clear();
-          _quotationumController.clear();
-          _quotationDateController.clear();
+          _email.clear();
+          _contactphone.clear();
+          
+          //_gstnum.clear();
+          // _quotationumController.clear();
+          // _quotationDateController.clear();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -263,18 +274,18 @@ DateTime _focusedDate = DateTime.now();
                 //     _companyPhone = value! as TextEditingController,
               ),
 
-              SizedBox(height: 16.0),
+               SizedBox(height: 16.0),
               TextFormField(
-                controller: _gstnum,
+                controller: _email,
                 decoration: InputDecoration(
                     focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10),
                         borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the GST number',
-                    labelText: 'GSTIN',
+                    hintText: 'Enter the Email',
+                    labelText: 'Email',
                     border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(10)),
-                    icon: Icon(Icons.numbers)),
+                    icon: Icon(Icons.email)),
                 // validator: (value) => value!.isEmpty
                 //     ? 'Please enter company phone number'
                 //     : null,
@@ -282,74 +293,116 @@ DateTime _focusedDate = DateTime.now();
                 // onSaved: (value) =>
                 //     _companyPhone = value! as TextEditingController,
               ),
-              
-              SizedBox(height: 16),
-                TextFormField(
-                  controller: _quotationumController,
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Enter the Quotation Number',
-                      labelText: 'Quotation Number',
-                      icon: Icon(Icons.receipt_long_rounded),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter Quotation Number' : null,
-                  onSaved: (value) =>
-                      _quotationumController= value as TextEditingController,
-                ),
-                SizedBox(height: 16),
-                GestureDetector(
-  onTap: () async {
-    final DateTime? selectedDate = await showDatePicker(
-      context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2021),
-      lastDate: DateTime(2025),
-      builder: (BuildContext context, Widget? child) {
-        return Theme(
-          data: ThemeData.light().copyWith(
-            primaryColor: Colors.blue,
-            accentColor: Colors.blue,
-            colorScheme: ColorScheme.light(primary: Colors.blue),
-            buttonTheme: ButtonThemeData(
-              textTheme: ButtonTextTheme.primary,
-            ),
-          ),
-          child: child!,
-        );
-      },
-    );
 
-    if (selectedDate != null) {
-      _quotationDateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
-      setState(() {
-        _selectedDate = selectedDate;
-        _focusedDate = selectedDate;
-      });
-    }
-  },
-  child: AbsorbPointer(
-    child: TextFormField(
-      controller: _quotationDateController,
-      decoration: InputDecoration(
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-          borderSide: BorderSide(color: Colors.black),
-        ),
-        hintText: 'Enter the Quotation Date',
-        labelText: 'Quotation Date',
-        icon: Icon(Icons.calendar_today_rounded),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
-      ),
-      validator: (value) => value!.isEmpty ? 'Please enter Quotation Date' : null,
-    ),
-  ),
-),
+               SizedBox(height: 16.0),
+              TextFormField(
+                controller: _contactphone,
+                decoration: InputDecoration(
+                    focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10),
+                        borderSide: BorderSide(color: Colors.black)),
+                    hintText: 'Enter the alternate number',
+                    labelText: 'Additioanl Conatact number ',
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(10)),
+                    icon: Icon(Icons.phone_android)),
+                // validator: (value) => value!.isEmpty
+                //     ? 'Please enter company phone number'
+                //     : null,
+                // keyboardType: TextInputType.phone,
+                // onSaved: (value) =>
+                //     _companyPhone = value! as TextEditingController,
+              ),
+
+              // SizedBox(height: 16.0),
+              // TextFormField(
+              //   controller: _gstnum,
+              //   decoration: InputDecoration(
+              //       focusedBorder: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10),
+              //           borderSide: BorderSide(color: Colors.black)),
+              //       hintText: 'Enter the GST number',
+              //       labelText: 'GSTIN',
+              //       border: OutlineInputBorder(
+              //           borderRadius: BorderRadius.circular(10)),
+              //       icon: Icon(Icons.numbers)),
+              //   // validator: (value) => value!.isEmpty
+              //   //     ? 'Please enter company phone number'
+              //   //     : null,
+              //   // keyboardType: TextInputType.phone,
+              //   // onSaved: (value) =>
+              //   //     _companyPhone = value! as TextEditingController,
+              // ),
+              
+//               SizedBox(height: 16),
+//                 TextFormField(
+//                   controller: _quotationumController,
+//                   decoration: InputDecoration(
+//                       focusedBorder: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(10),
+//                           borderSide: BorderSide(color: Colors.black)),
+//                       hintText: 'Enter the Quotation Number',
+//                       labelText: 'Quotation Number',
+//                       icon: Icon(Icons.receipt_long_rounded),
+//                       border: OutlineInputBorder(
+//                           borderRadius: BorderRadius.circular(10))),
+//                   validator: (value) =>
+//                       value!.isEmpty ? 'Please enter Quotation Number' : null,
+//                   onSaved: (value) =>
+//                       _quotationumController= value as TextEditingController,
+//                 ),
+//                 SizedBox(height: 16),
+//                 GestureDetector(
+//   onTap: () async {
+//     final DateTime? selectedDate = await showDatePicker(
+//       context: context,
+//       initialDate: DateTime.now(),
+//       firstDate: DateTime(2021),
+//       lastDate: DateTime(2025),
+//       builder: (BuildContext context, Widget? child) {
+//         return Theme(
+//           data: ThemeData.light().copyWith(
+//             primaryColor: Colors.blue,
+//             accentColor: Colors.blue,
+//             colorScheme: ColorScheme.light(primary: Colors.blue),
+//             buttonTheme: ButtonThemeData(
+//               textTheme: ButtonTextTheme.primary,
+//             ),
+//           ),
+//           child: child!,
+//         );
+//       },
+//     );
+
+//     if (selectedDate != null) {
+//       _quotationDateController.text = DateFormat('dd/MM/yyyy').format(selectedDate);
+//       setState(() {
+//         _selectedDate = selectedDate;
+//         _focusedDate = selectedDate;
+//       });
+//     }
+//   },
+//   child: AbsorbPointer(
+//     child: TextFormField(
+//       controller: _quotationDateController,
+//       decoration: InputDecoration(
+//         focusedBorder: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//           borderSide: BorderSide(color: Colors.black),
+//         ),
+//         hintText: 'Enter the Quotation Date',
+//         labelText: 'Quotation Date',
+//         icon: Icon(Icons.calendar_today_rounded),
+//         border: OutlineInputBorder(
+//           borderRadius: BorderRadius.circular(10),
+//         ),
+//       ),
+//       validator: (value) => value!.isEmpty ? 'Please enter Quotation Date' : null,
+//     ),
+//   ),
+// ),
+
+
 
 SizedBox(height: 32.0),
               SizedBox(height: 32.0),
@@ -402,20 +455,6 @@ SizedBox(height: 32.0),
                 
                 ] ),
                 
-                Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Center(
-                      child: TextButton(onPressed: (){
-Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => CustomerForm()));
-                      }, 
-                      child: Text("Customer Details",style: TextStyle(fontSize: 25,decoration: TextDecoration.underline),)),
-                    ),
-                  ],
-                ),
                 //changes-------------------------------  
                 
                 //changes-----------------------------

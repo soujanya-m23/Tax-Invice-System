@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:project/DisplayC.dart';
-import 'package:project/Quotation1.dart';
+import 'package:project/company.dart';
+import 'package:project/item.dart';
 import 'displayQ.dart';
 
 import 'package:table_calendar/table_calendar.dart';
 
 //import 'package:intl/intl.dart';
 import 'package:sqflite/sqflite.dart';
-import 'modal.dart';
+import 'modalCustomer.dart';
 
 import 'DashBoard.dart';
 import 'db_helper.dart';
@@ -25,10 +26,11 @@ class _customerFormState extends State<CustomerForm> {
   TextEditingController _customerName = TextEditingController();
   TextEditingController _customerAddress = TextEditingController();
   TextEditingController _customerPhone = TextEditingController();
-  TextEditingController _bankName = TextEditingController();
-  TextEditingController _bankAddress = TextEditingController();
-  TextEditingController _bankAccountNumber = TextEditingController();
-  TextEditingController _bankIFSCCode = TextEditingController();
+  TextEditingController _customeremail = TextEditingController();
+  // TextEditingController _bankName = TextEditingController();
+  // TextEditingController _bankAddress = TextEditingController();
+  // TextEditingController _bankAccountNumber = TextEditingController();
+  // TextEditingController _bankIFSCCode = TextEditingController();
 
   var customerId;
 
@@ -41,11 +43,12 @@ class _customerFormState extends State<CustomerForm> {
         TextEditingController(text: widget.customers?.cuadd ?? '');
     _customerPhone =
         TextEditingController(text: widget.customers?.cuphone ?? '');
-    _bankName = TextEditingController(text: widget.customers?.bname ?? '');
-    _bankAddress = TextEditingController(text: widget.customers?.badd ?? '');
-    _bankAccountNumber =
-        TextEditingController(text: widget.customers?.bacc ?? '');
-    _bankIFSCCode = TextEditingController(text: widget.customers?.bifsc ?? '');
+        TextEditingController(text: widget.customers?.cuemail ?? '');
+    // _bankName = TextEditingController(text: widget.customers?.bname ?? '');
+    // _bankAddress = TextEditingController(text: widget.customers?.badd ?? '');
+    // _bankAccountNumber =
+    //     TextEditingController(text: widget.customers?.bacc ?? '');
+    // _bankIFSCCode = TextEditingController(text: widget.customers?.bifsc ?? '');
   }
 
   @override
@@ -53,10 +56,11 @@ class _customerFormState extends State<CustomerForm> {
     _customerName.dispose();
     _customerAddress.dispose();
     _customerPhone.dispose();
-    _bankName.dispose();
-    _bankAddress.dispose();
-    _bankAccountNumber.dispose();
-    _bankIFSCCode.dispose();
+    _customeremail.dispose();
+    // _bankName.dispose();
+    // _bankAddress.dispose();
+    // _bankAccountNumber.dispose();
+    // _bankIFSCCode.dispose();
 
     super.dispose();
   }
@@ -67,17 +71,18 @@ class _customerFormState extends State<CustomerForm> {
       cuname: _customerName.text,
       cuadd: _customerAddress.text,
       cuphone: _customerPhone.text,
-      bname: _bankName.text,
-      badd: _bankAddress.text,
-      bacc: _bankAccountNumber.text,
-       bifsc: _bankIFSCCode.text,
+      cuemail: _customeremail.text,      
+      // bname: _bankName.text,
+      // badd: _bankAddress.text,
+      // bacc: _bankAccountNumber.text,
+      //  bifsc: _bankIFSCCode.text,
     );
     bool shouldProceed = await showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title: Text(widget.customers == null
                   ? 'Add User'
-                  : 'Update User ${widget.customers!.cuname}?'),
+                  : '   User ${widget.customers!.cuname}?'),
               content: Text(widget.customers == null
                   ? 'Are you sure you want to add this user?'
                   : 'Are you sure you want to update ${widget.customers!.cuname}?'),
@@ -110,10 +115,11 @@ class _customerFormState extends State<CustomerForm> {
         _customerName.clear();
         _customerAddress.clear();
         _customerPhone.clear();
-        _bankName.clear();
-        _bankAddress.clear();
-        _bankAccountNumber.clear();
-        _bankIFSCCode.clear();
+        _customeremail.clear();
+        // _bankName.clear();
+        // _bankAddress.clear();
+        // _bankAccountNumber.clear();
+        // _bankIFSCCode.clear();
           
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -136,10 +142,11 @@ class _customerFormState extends State<CustomerForm> {
            _customerName.clear();
        _customerAddress.clear();
        _customerPhone.clear();
-       _bankName.clear();
-       _bankAddress.clear();
-       _bankAccountNumber.clear();
-        _bankIFSCCode.clear();
+       _customeremail.clear();
+      //  _bankName.clear();
+      //  _bankAddress.clear();
+      //  _bankAccountNumber.clear();
+      //   _bankIFSCCode.clear();
          
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -169,6 +176,7 @@ class _customerFormState extends State<CustomerForm> {
             SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Icon(
                   Icons.category,
@@ -195,7 +203,7 @@ class _customerFormState extends State<CustomerForm> {
                     ),
                   ],
                   hint: Text("Select Category"),
-                  underline: Container(height: 2, color: Colors.grey),
+                  underline: Container(height: 2, color: Colors.black),
                 ),
               ],
             ),
@@ -247,90 +255,25 @@ class _customerFormState extends State<CustomerForm> {
                   labelText: 'Phone',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.phone)),
+                  icon: Icon(Icons.phone)),),
               // validator: (value) =>
               //     value!.isEmpty ? 'Please enter customer phone number' : null,
               // keyboardType: TextInputType.phone,
               // onSaved: (value) =>
               //     _customerPhone = value! as TextEditingController,
-            ),
-            SizedBox(height: 32.0),
-            Text(
-              'Bank Details',
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16.0,
-              ),
-            ),
+            // ),
             SizedBox(height: 16.0),
             TextFormField(
-              controller: _bankName,
+              controller: _customeremail,
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter the Bank Name',
-                  labelText: 'Name',
+                  hintText: 'Enter Customer Email',
+                  labelText: 'Email',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.person)),
-              // validator: (value) =>
-              //     value!.isEmpty ? 'Please enter bank name' : null,
-              // onSaved: (value) =>
-              //     _bankName = value! as TextEditingController
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _bankAddress,
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter the Address',
-                  labelText: 'Bank Address',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.location_city)),
-              // validator: (value) =>
-              //     value!.isEmpty ? 'Please enter bank address' : null,
-              // onSaved: (value) =>
-              //     _bankAddress = value! as TextEditingController,
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _bankAccountNumber,
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter Account Number',
-                  labelText: 'Bank Account Number',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.account_circle)),
-              // validator: (value) =>
-              //     value!.isEmpty ? 'Please enter bank account number' : null,
-              // keyboardType: TextInputType.number,
-              // onSaved: (value) =>
-              //     _bankAccountNumber = value! as TextEditingController,
-            ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _bankIFSCCode,
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter IFSC Code',
-                  labelText: 'Bank IFSC Code',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.account_circle)),
-              // validator: (value) =>
-              //     value!.isEmpty ? 'Please enter bank IFSC code' : null,
-              // onSaved: (value) =>
-              //     _bankIFSCCode = value! as TextEditingController,
-            ),
+                  icon: Icon(Icons.phone)),),
             SizedBox(width: 30),
             SizedBox(height: 32.0),
             Row(children: [
@@ -339,7 +282,7 @@ class _customerFormState extends State<CustomerForm> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => QuotationTaxInvoiceForm()));
+                            builder: (context) => CompanyForm()));
                   },
                   icon: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -361,7 +304,21 @@ class _customerFormState extends State<CustomerForm> {
                 },
                 child: Text("see data inserted "),
               ),
-            ])
+            ]),
+            Column(
+                  children: [
+                    SizedBox(
+                      height: 40,
+                    ),
+                    Center(
+                      child: TextButton(onPressed: (){
+Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => ItemTable()));
+                      }, 
+                      child: Text("Item Details",style: TextStyle(fontSize: 25,decoration: TextDecoration.underline),)),
+                    ),
+                  ],
+                ),
           ])
         ]));
   }
