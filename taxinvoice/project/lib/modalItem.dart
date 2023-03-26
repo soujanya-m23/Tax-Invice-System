@@ -1,12 +1,20 @@
 class Item {
-    final int? id3; // make id nullable
-     String name;
+  final int? id3; // make id nullable
+  String name;
   int quantity;
   double price;
-  
-  
+  String cuname;
+  String customerID;
 
-  Item({this.id3,required this.name, required this.quantity, required this.price});
+  Item(
+      {this.id3,
+      required this.name,
+      required this.quantity,
+      required this.price,
+      required this.cuname,
+      required this.customerID,
+      
+      });
 
   Map<String, dynamic> toMap() {
     return {
@@ -14,7 +22,8 @@ class Item {
       'name': name,
       'quantity': quantity,
       'price': price,
-    
+      'cuname': cuname,
+      'customerID': customerID,
     };
   }
 
@@ -24,9 +33,8 @@ class Item {
       name: map['name'],
       quantity: map['quantity'],
       price: map['price'],
-     
-
-
+       cuname: map['cuname'],
+       customerID: map['customerID'],
 
     );
   }

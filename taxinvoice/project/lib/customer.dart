@@ -23,27 +23,41 @@ class CustomerForm extends StatefulWidget {
 
 class _customerFormState extends State<CustomerForm> {
   final _formKey = GlobalKey<FormState>();
+  TextEditingController _customerID = TextEditingController();
   TextEditingController _customerName = TextEditingController();
   TextEditingController _customerAddress = TextEditingController();
   TextEditingController _customerPhone = TextEditingController();
   TextEditingController _customeremail = TextEditingController();
+  TextEditingController _companyID = TextEditingController();
+  TextEditingController _itemID = TextEditingController();
+   TextEditingController _amt = TextEditingController();
+  
+
+
+  var customer_val;
   // TextEditingController _bankName = TextEditingController();
   // TextEditingController _bankAddress = TextEditingController();
   // TextEditingController _bankAccountNumber = TextEditingController();
   // TextEditingController _bankIFSCCode = TextEditingController();
 
-  var customerId;
-
   @override
   void initState() {
     super.initState();
 
+    _customerID = TextEditingController(
+        text: widget.customers?.customerId != null ? widget.customers!.customerId.toString() : '');
     _customerName = TextEditingController(text: widget.customers?.cuname ?? '');
-    _customerAddress =
-        TextEditingController(text: widget.customers?.cuadd ?? '');
-    _customerPhone =
-        TextEditingController(text: widget.customers?.cuphone ?? '');
-        TextEditingController(text: widget.customers?.cuemail ?? '');
+    _customerAddress =  TextEditingController(text: widget.customers?.cuadd ?? '');
+    _customerPhone = TextEditingController(text: widget.customers?.cuphone ?? '');
+    TextEditingController(text: widget.customers?.cuemail ?? '');
+    _companyID = TextEditingController(
+        text: widget.customers?.company_id != null
+            ? widget.customers!.company_id.toString():'');
+    _itemID =TextEditingController(text: widget.customers?.itemID ?? '');
+    _amt = TextEditingController(
+        text: widget.customers?.amt != null ? widget.customers!.amt.toString() : '');
+
+          
     // _bankName = TextEditingController(text: widget.customers?.bname ?? '');
     // _bankAddress = TextEditingController(text: widget.customers?.badd ?? '');
     // _bankAccountNumber =
@@ -53,10 +67,15 @@ class _customerFormState extends State<CustomerForm> {
 
   @override
   void dispose() {
+    _customerID.dispose();
     _customerName.dispose();
     _customerAddress.dispose();
     _customerPhone.dispose();
     _customeremail.dispose();
+    _companyID.dispose();
+    _itemID.dispose();
+    _amt.dispose();
+
     // _bankName.dispose();
     // _bankAddress.dispose();
     // _bankAccountNumber.dispose();
@@ -67,11 +86,16 @@ class _customerFormState extends State<CustomerForm> {
 
   void _handleSubmit() async {
     final user1 = Customer(
-      id1: widget.customers?.id1, // use the id of the user being edited, if provided
+      id1: widget.customers?.id1,
+      customerId: int.tryParse(_customerID.text) ??
+          0, // use the id of the user being edited, if provided
       cuname: _customerName.text,
       cuadd: _customerAddress.text,
       cuphone: _customerPhone.text,
-      cuemail: _customeremail.text,      
+      cuemail: _customeremail.text,
+      company_id: int.tryParse(_companyID.text) ?? 0,
+      itemID: _itemID.text,
+      amt: double.tryParse(_amt.text) ?? 0,
       // bname: _bankName.text,
       // badd: _bankAddress.text,
       // bacc: _bankAccountNumber.text,
@@ -103,7 +127,7 @@ class _customerFormState extends State<CustomerForm> {
     if (shouldProceed) {
       int result;
       if (widget.customers == null) {
-        result = await DatabaseHelper.addCustomer(user1 );
+        result = await DatabaseHelper.addCustomer(user1);
         if (result != null && result > 0) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -112,15 +136,18 @@ class _customerFormState extends State<CustomerForm> {
             ),
           );
           // Clear the form fields after adding/updating the user
-        _customerName.clear();
-        _customerAddress.clear();
-        _customerPhone.clear();
-        _customeremail.clear();
-        // _bankName.clear();
-        // _bankAddress.clear();
-        // _bankAccountNumber.clear();
-        // _bankIFSCCode.clear();
-          
+          _customerID.clear();
+          _customerName.clear();
+          _customerAddress.clear();
+          _customerPhone.clear();
+          _customeremail.clear();
+          _companyID.clear();
+          _itemID.clear();
+          _amt.clear();
+          // _bankName.clear();
+          // _bankAddress.clear();
+          // _bankAccountNumber.clear();
+          // _bankIFSCCode.clear();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -139,15 +166,18 @@ class _customerFormState extends State<CustomerForm> {
             ),
           );
           // Clear the form fields after adding/updating the user
-           _customerName.clear();
-       _customerAddress.clear();
-       _customerPhone.clear();
-       _customeremail.clear();
-      //  _bankName.clear();
-      //  _bankAddress.clear();
-      //  _bankAccountNumber.clear();
-      //   _bankIFSCCode.clear();
-         
+          _customerID.clear();
+          _customerName.clear();
+          _customerAddress.clear();
+          _customerPhone.clear();
+          _customeremail.clear();
+          _companyID.clear();
+           _itemID.clear();
+          _amt.clear();
+          //  _bankName.clear();
+          //  _bankAddress.clear();
+          //  _bankAccountNumber.clear();
+          //   _bankIFSCCode.clear();
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -176,24 +206,21 @@ class _customerFormState extends State<CustomerForm> {
             SizedBox(height: 16.0),
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.baseline,
               children: [
                 Icon(
                   Icons.category,
                 ),
                 SizedBox(width: 20),
                 DropdownButton<String>(
-                  
-                  value: customerId,
+                  value: customer_val,
                   onChanged: (newValue) {
                     setState(() {
-                      customerId = newValue;
+                      customer_val = newValue;
                     });
                     print("Selected Category: $newValue");
                   },
                   items: [
                     DropdownMenuItem(
-                      
                       value: "Hardware",
                       child: Text("Hardware"),
                     ),
@@ -210,6 +237,18 @@ class _customerFormState extends State<CustomerForm> {
             SizedBox(
               height: 13,
             ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              controller: _customerID,
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black)),
+                  hintText: 'Enter Customer ID',
+                  labelText: 'ID',
+                  icon: Icon(Icons.person),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10))),),
             SizedBox(height: 16.0),
             TextFormField(
               controller: _customerName,
@@ -255,12 +294,13 @@ class _customerFormState extends State<CustomerForm> {
                   labelText: 'Phone',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.phone)),),
-              // validator: (value) =>
-              //     value!.isEmpty ? 'Please enter customer phone number' : null,
-              // keyboardType: TextInputType.phone,
-              // onSaved: (value) =>
-              //     _customerPhone = value! as TextEditingController,
+                  icon: Icon(Icons.phone)),
+            ),
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter customer phone number' : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _customerPhone = value! as TextEditingController,
             // ),
             SizedBox(height: 16.0),
             TextFormField(
@@ -273,16 +313,54 @@ class _customerFormState extends State<CustomerForm> {
                   labelText: 'Email',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.phone)),),
+                  icon: Icon(Icons.email)),
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              controller: _companyID,
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black)),
+                  hintText: 'Enter Comapany ID',
+                  labelText: 'Comapny ID',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  icon: Icon(Icons.numbers_rounded)),
+            ),
+            SizedBox(height: 16.0),
+            TextFormField(
+              controller: _itemID,
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black)),
+                  hintText: 'Enter Item ID',
+                  labelText: 'Item ID',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  icon: Icon(Icons.numbers_outlined)),
+            ),
+            SizedBox(height:25 ,),
+            TextFormField(
+              controller: _amt,
+              decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      borderSide: BorderSide(color: Colors.black)),
+                  hintText: 'Enter the amount paid ',
+                  labelText: 'Amount paid',
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(10)),
+                  icon: Icon(Icons.money)),
+            ),
             SizedBox(width: 30),
             SizedBox(height: 32.0),
             Row(children: [
               IconButton(
                   onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => CompanyForm()));
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => CompanyForm()));
                   },
                   icon: Icon(Icons.arrow_back_ios_outlined)),
               SizedBox(
@@ -306,19 +384,26 @@ class _customerFormState extends State<CustomerForm> {
               ),
             ]),
             Column(
-                  children: [
-                    SizedBox(
-                      height: 40,
-                    ),
-                    Center(
-                      child: TextButton(onPressed: (){
-Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => ItemTable()));
-                      }, 
-                      child: Text("Item Details",style: TextStyle(fontSize: 25,decoration: TextDecoration.underline),)),
-                    ),
-                  ],
+              children: [
+                SizedBox(
+                  height: 40,
                 ),
+                Center(
+                  child: TextButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ItemTable()));
+                      },
+                      child: Text(
+                        "Item Details",
+                        style: TextStyle(
+                            fontSize: 25, decoration: TextDecoration.underline),
+                      )),
+                ),
+              ],
+            ),
           ])
         ]));
   }

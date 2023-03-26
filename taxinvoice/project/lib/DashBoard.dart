@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:project/customer.dart';
+import 'package:project/invoice_page.dart';
 import 'package:project/report.dart';
 import 'package:project/transaction%20details.dart';
 
@@ -176,7 +177,7 @@ class _MyDashboardState extends State<MyDashboard> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => InvoiceForm()));
+                                builder: (context) => InvoicePage()));
                       },
                     ),
                     InkWell(
@@ -184,16 +185,16 @@ class _MyDashboardState extends State<MyDashboard> {
                           child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: <Widget>[
-                            Image.asset('assets/debit.png', scale: 5.3),
+                            Image.asset('assets/item.jpg', scale: 3),
                             SizedBox(
                               height: 30,
                             ),
-                            Text('Debit',
+                            Text('Items',
                                 style: TextStyle(fontWeight: FontWeight.bold,fontSize: 23,color: Colors.blueGrey))
                           ])),
                       onTap: () {
                         Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => DebitForm()));
+                            MaterialPageRoute(builder: (context) => ItemTable()));
                       },
                     ),
                     InkWell(

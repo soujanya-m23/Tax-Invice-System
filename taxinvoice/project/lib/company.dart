@@ -13,7 +13,6 @@ import 'DashBoard.dart';
 import 'db_helper.dart';
 
 class CompanyForm extends StatefulWidget {
-
   //changes
   final Company? user;
   const CompanyForm({Key? key, this.user}) : super(key: key);
@@ -26,83 +25,80 @@ class CompanyForm extends StatefulWidget {
 class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
   final _formKey = GlobalKey<FormState>();
 
-
   TextEditingController _companyName = TextEditingController();
   TextEditingController _companyAddress = TextEditingController();
   TextEditingController _companyPhone = TextEditingController();
- TextEditingController _email = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _contactphone = TextEditingController();
+  TextEditingController _companyID = TextEditingController();
   // TextEditingController _quotationumController = TextEditingController();
   // TextEditingController _quotationDateController = TextEditingController();
-  TextEditingController _contactphone = TextEditingController();
-  
-  
-  
-  
-  // TextEditingController _customerName = TextEditingController();
-  // TextEditingController _customerAddress = TextEditingController();
-  // TextEditingController _customerPhone = TextEditingController();
-  // TextEditingController _bankName = TextEditingController();
-  // TextEditingController _bankAddress = TextEditingController();
-  // TextEditingController _bankAccountNumber = TextEditingController();
-  // TextEditingController _bankIFSCCode = TextEditingController();
-   // ------------------------------------------------------------------------
+
+  // ------------------------------------------------------------------------
 //TextEditingController _quotationDateController = TextEditingController();
 //------------------------------------------------------------------------------
 // Define the calendar format, selected date, and focused date
 
-CalendarFormat _calendarFormat = CalendarFormat.month;
-DateTime _selectedDate = DateTime.now();
-DateTime _focusedDate = DateTime.now();
+  CalendarFormat _calendarFormat = CalendarFormat.month;
+  DateTime _selectedDate = DateTime.now();
+  DateTime _focusedDate = DateTime.now();
 
   @override
   void initState() {
     super.initState();
 
-
 //changes
     _companyName = TextEditingController(text: widget.user?.coname ?? '');
     _companyAddress = TextEditingController(text: widget.user?.coadd ?? '');
-    _companyPhone =TextEditingController(text: widget.user?.cophone ?? '');
+    _companyPhone = TextEditingController(text: widget.user?.cophone ?? '');
     _email = TextEditingController(text: widget.user?.email ?? '');
+     _companyID =TextEditingController(
+        text: widget.user?.companyID != null ? widget.user!.companyID.toString() : '');
+
     // _quotationumController =TextEditingController(text: widget.user?.qnum ?? '');
     // _quotationDateController =TextEditingController(text: widget.user?.qdate ?? '');
-    _contactphone =TextEditingController(text: widget.user?.coname ?? '');
-
+    _contactphone = TextEditingController(text: widget.user?.coname ?? '');
+   
     //-----------------------------------------------------------
     // this._Category.add({"id": 1, "label": "Hardware"});
     // this._Category.add({"id": 2, "label": "Software"});
     //---------------------------------------------------------------
   }
+
 //changes---
-@override
+  @override
   void dispose() {
     _companyName.dispose();
     _companyAddress.dispose();
     _companyPhone.dispose();
+     _email.dispose();
+        _companyID.dispose();
     // _gstnum.dispose();
     // _quotationumController.dispose();
     // _quotationDateController.dispose();
-     _contactphone.dispose();
-     _email.dispose();
-    
+    _contactphone.dispose();
+ 
+   
+
     super.dispose();
   }
 
   void _handleSubmit() async {
     final user = Company(
-        id: widget.user?.id, // use the id of the user being edited, if provided
-        coname: _companyName.text,
-        coadd: _companyAddress.text,
-        cophone: _companyPhone.text, 
-        email: _email.text,
-        contactphone: _contactphone.text,
+      id: widget.user?.id, // use the id of the user being edited, if provided
+      coname: _companyName.text,
+      coadd: _companyAddress.text,
+      cophone: _companyPhone.text,
+      email: _email.text,
+      companyID: int.tryParse(_companyID.text) ?? 0,
+      contactphone: _contactphone.text,
+      
 
-        //gstnum: _gstnum.text,
-        // qnum: _quotationumController.text, 
-        // qdate: _quotationDateController.text, 
-        
-        );
-        bool shouldProceed = await showDialog(
+      //gstnum: _gstnum.text,
+      // qnum: _quotationumController.text,
+      // qdate: _quotationDateController.text,
+    );
+    bool shouldProceed = await showDialog(
         context: context,
         builder: (context) => AlertDialog(
               title: Text(widget.user == null
@@ -111,7 +107,7 @@ DateTime _focusedDate = DateTime.now();
               content: Text(widget.user == null
                   ? 'Are you sure you want to add this user?'
                   : 'Are you sure you want to update ${widget.user!.coname}?'),
-                  actions: [
+              actions: [
                 TextButton(
                     onPressed: () {
                       Navigator.of(context).pop(false);
@@ -141,11 +137,14 @@ DateTime _focusedDate = DateTime.now();
           _companyAddress.clear();
           _companyPhone.clear();
           _email.clear();
+          _companyID.clear();
           _contactphone.clear();
+
+          
+          
           //_gstnum.clear();
           // _quotationumController.clear();
           // _quotationDateController.clear();
-        
         } else {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -168,8 +167,10 @@ DateTime _focusedDate = DateTime.now();
           _companyAddress.clear();
           _companyPhone.clear();
           _email.clear();
+          _companyID.clear();
           _contactphone.clear();
           
+
           //_gstnum.clear();
           // _quotationumController.clear();
           // _quotationDateController.clear();
@@ -185,155 +186,160 @@ DateTime _focusedDate = DateTime.now();
     }
   }
 
-        
-        
-
-    
-    // } else {
-    //   result = await DatabaseHelper.updateUser(user.id!, user);
-    // }
-
-    
-
-
-
-
+  // } else {
+  //   result = await DatabaseHelper.updateUser(user.id!, user);
+  // }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Quotation Tax Invoice Form'),
+        title: Text('Comapany Form'),
       ),
-      body: ListView(
-        padding: EdgeInsets.all(16.0),
-        children: <Widget>[
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Company Details',
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16.0,
-                ),
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _companyName,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the Name',
-                    labelText: 'Name',
-                    icon: Icon(Icons.person),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-    //-------------------------------------------------------------------------------------------------
-                // validator: (value) =>
-                //     value!.isEmpty ? 'Please enter companyname' : null,
-                // onSaved: (value) =>
-                //     _companyName = value! as TextEditingController,
-    //--------------------------------------------------------------------------------------------------------
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _companyAddress,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the Address',
-                    labelText: 'Address',
-                    icon: Icon(Icons.location_city),
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10))),
-                // validator: (value) =>
-                //     value!.isEmpty ? 'Please enter company name' : null,
-                // onSaved: (value) =>
-                //     _companyAddress = value! as TextEditingController,
-              ),
-              SizedBox(height: 16.0),
-              TextFormField(
-                controller: _companyPhone,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the phone',
-                    labelText: 'Phone',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    icon: Icon(Icons.phone)),
-                // validator: (value) => value!.isEmpty
-                //     ? 'Please enter company phone number'
-                //     : null,
-                // keyboardType: TextInputType.phone,
-                // onSaved: (value) =>
-                //     _companyPhone = value! as TextEditingController,
-              ),
+      body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
+        Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Text(
+            'Company Details',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _companyName,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the Name',
+                labelText: 'Name',
+                icon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            //-------------------------------------------------------------------------------------------------
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter companyname' : null,
+            // onSaved: (value) =>
+            //     _companyName = value! as TextEditingController,
+            //--------------------------------------------------------------------------------------------------------
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _companyAddress,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the Address',
+                labelText: 'Address',
+                icon: Icon(Icons.location_city),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter company name' : null,
+            // onSaved: (value) =>
+            //     _companyAddress = value! as TextEditingController,
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _companyPhone,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the phone',
+                labelText: 'Phone',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.phone)),
+            // validator: (value) => value!.isEmpty
+            //     ? 'Please enter company phone number'
+            //     : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _companyPhone = value! as TextEditingController,
+          ),
 
-               SizedBox(height: 16.0),
-              TextFormField(
-                controller: _email,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the Email',
-                    labelText: 'Email',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    icon: Icon(Icons.email)),
-                // validator: (value) => value!.isEmpty
-                //     ? 'Please enter company phone number'
-                //     : null,
-                // keyboardType: TextInputType.phone,
-                // onSaved: (value) =>
-                //     _companyPhone = value! as TextEditingController,
-              ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _email,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the Email',
+                labelText: 'Email',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.email)),
+            // validator: (value) => value!.isEmpty
+            //     ? 'Please enter company phone number'
+            //     : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _companyPhone = value! as TextEditingController,
+          ),
+           SizedBox(height: 16.0),
+          TextFormField(
+            controller: _companyID,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the Company ID',
+                labelText: 'ID',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.numbers)),
+            // validator: (value) => value!.isEmpty
+            //     ? 'Please enter company phone number'
+            //     : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _companyPhone = value! as TextEditingController,
+          ),
 
-               SizedBox(height: 16.0),
-              TextFormField(
-                controller: _contactphone,
-                decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(color: Colors.black)),
-                    hintText: 'Enter the alternate number',
-                    labelText: 'Additioanl Conatact number ',
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                    icon: Icon(Icons.phone_android)),
-                // validator: (value) => value!.isEmpty
-                //     ? 'Please enter company phone number'
-                //     : null,
-                // keyboardType: TextInputType.phone,
-                // onSaved: (value) =>
-                //     _companyPhone = value! as TextEditingController,
-              ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _contactphone,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the alternate number',
+                labelText: 'Additional Contact number ',
+                border:
+                    OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.phone_android)),
+            // validator: (value) => value!.isEmpty
+            //     ? 'Please enter company phone number'
+            //     : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _companyPhone = value! as TextEditingController,
+          ),
 
-              // SizedBox(height: 16.0),
-              // TextFormField(
-              //   controller: _gstnum,
-              //   decoration: InputDecoration(
-              //       focusedBorder: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10),
-              //           borderSide: BorderSide(color: Colors.black)),
-              //       hintText: 'Enter the GST number',
-              //       labelText: 'GSTIN',
-              //       border: OutlineInputBorder(
-              //           borderRadius: BorderRadius.circular(10)),
-              //       icon: Icon(Icons.numbers)),
-              //   // validator: (value) => value!.isEmpty
-              //   //     ? 'Please enter company phone number'
-              //   //     : null,
-              //   // keyboardType: TextInputType.phone,
-              //   // onSaved: (value) =>
-              //   //     _companyPhone = value! as TextEditingController,
-              // ),
-              
+          // SizedBox(height: 16.0),
+          // TextFormField(
+          //   controller: _gstnum,
+          //   decoration: InputDecoration(
+          //       focusedBorder: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(10),
+          //           borderSide: BorderSide(color: Colors.black)),
+          //       hintText: 'Enter the GST number',
+          //       labelText: 'GSTIN',
+          //       border: OutlineInputBorder(
+          //           borderRadius: BorderRadius.circular(10)),
+          //       icon: Icon(Icons.numbers)),
+          //   // validator: (value) => value!.isEmpty
+          //   //     ? 'Please enter company phone number'
+          //   //     : null,
+          //   // keyboardType: TextInputType.phone,
+          //   // onSaved: (value) =>
+          //   //     _companyPhone = value! as TextEditingController,
+          // ),
+
 //               SizedBox(height: 16),
 //                 TextFormField(
 //                   controller: _quotationumController,
@@ -402,71 +408,56 @@ DateTime _focusedDate = DateTime.now();
 //   ),
 // ),
 
+          SizedBox(height: 32.0),
+          SizedBox(height: 32.0),
+          Row(children: [
+            IconButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => MyDashboard()));
+                },
+                icon: Icon(Icons.arrow_back_ios_outlined)),
+            SizedBox(
+              width: 30,
+            ),
+            //TextButton(
+            //onPressed: () {
+            //if (_formKey.currentState!.validate()) {
+            // _formKey.currentState!.save();
 
+            //TODO: Add your code to save form data to database or send data to server
+            //changes--------------------------
+            // ScaffoldMessenger.of(context).showSnackBar(
+            //   SnackBar(
+            //     content: Text('Form data saved successfully.'),
+            //   ),
+            // );
+            //--------------------------------------------
+            //}
+            //},
+            ElevatedButton(
+              onPressed: _handleSubmit,
+              child: Text("Submit"),
+            ),
+            SizedBox(
+              width: 40,
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => Displaydatabase()));
+              },
+              child: Text("see data inserted "),
+            ),
+          ]),
 
-SizedBox(height: 32.0),
-              SizedBox(height: 32.0),
-              Row(children: [
-                IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => MyDashboard()));
-                    },
-                    icon: Icon(Icons.arrow_back_ios_outlined)),
-                SizedBox(
-                  width: 30,
-                ),
-                //TextButton(
-                  //onPressed: () { 
-                     //if (_formKey.currentState!.validate()) {
-                       // _formKey.currentState!.save();
+          //changes-------------------------------
 
-                        //TODO: Add your code to save form data to database or send data to server
-               //changes--------------------------
-                        // ScaffoldMessenger.of(context).showSnackBar(
-                        //   SnackBar(
-                        //     content: Text('Form data saved successfully.'),
-                        //   ),
-                        // );
-               //--------------------------------------------         
-                      //}
-                   //}, 
-                   ElevatedButton(
-                    
-                  onPressed: _handleSubmit,
-                    
-                  
-                  child: Text("Submit"),
-                ),
-                SizedBox(
-                  width: 40,
-                ),
-                ElevatedButton(
-                  onPressed: () { 
-                    Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => Displaydatabase()));
-                  },
-                  child: Text("see data inserted "),
-                ),
-                
-                
-                
-                ] ),
-                
-                //changes-------------------------------  
-                
-                //changes-----------------------------
-                
-                ]),
-                
-                //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
-              ]),
-              
-            );
-          
+          //changes-----------------------------
+        ]),
+
+        //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
+      ]),
+    );
   }
-      
-    
-  }
+}

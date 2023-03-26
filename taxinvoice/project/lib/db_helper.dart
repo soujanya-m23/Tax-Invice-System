@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:project/modalInvoice.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import 'customer.dart';
@@ -8,17 +9,20 @@ import 'package:project/modalCustomer.dart';
 import 'modalCompany.dart';
 import 'company.dart';
 import 'package:project/modalTransaction.dart';
+import 'modalInvoice.dart';
 
 
 class DatabaseHelper {
   static Future<void> createTables(sql.Database database) async {
    await database.execute(""" 
       CREATE TABLE users(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,  
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+          
         coname TEXT,
         coadd TEXT,
         cophone TEXT,
         email TEXT,
+        companyID INTEGER,
         contactphone TEXT
         )
     """);
@@ -27,23 +31,41 @@ class DatabaseHelper {
     await database.execute(""" 
       CREATE TABLE customers(
         id INTEGER PRIMARY KEY AUTOINCREMENT,  
+        company_id INTEGER,
+        customer_id INTEGER,
         cuname TEXT,
         cuadd TEXT,
         cuphone TEXT,
-        cuemail TEXT
+        cuemail TEXT,
+        itemID TEXT,
+        amt REAL,
+        FOREIGN KEY (company_id) REFERENCES users(companyID)
         
       )
     """);
-    //Transaction table----------------------------------------------------------
-    await database.execute(""" 
-      CREATE TABLE bank_details(
-        id INTEGER PRIMARY KEY AUTOINCREMENT,  
-        bname TEXT,
-        badd TEXT,
-        bacc TEXT,
-        bifsc TEXT
-      )
-    """);
+    // //Transaction table----------------------------------------------------------
+    // await database.execute(""" 
+    //   CREATE TABLE bank_details(
+    //     id INTEGER PRIMARY KEY AUTOINCREMENT,  
+    //     bname TEXT,
+    //     badd TEXT,
+    //     bacc TEXT,
+    //     bifsc TEXT
+    //   )
+    // """);
+
+    // await database.execute(""" 
+    //   CREATE TABLE invoices(
+    //     id INTEGER PRIMARY KEY AUTOINCREMENT,  
+    //     user_id INTEGER,
+    //     customer_id INTEGER,
+    //     total_amount REAL,
+    //     FOREIGN KEY (user_id) REFERENCES users(id),
+    //     FOREIGN KEY (customer_id) REFERENCES customers(id)
+
+       
+    //   )
+    // """);
   }
  
  static Future<sql.Database> db() async {
@@ -52,6 +74,7 @@ class DatabaseHelper {
       'tax.db',
       version: 1,
       onCreate: (sql.Database database, int version) async {
+        //var result =await database.query('users',orderBy: '$coname ASC');
         await createTables(database);
       },
     );
@@ -67,18 +90,24 @@ static Future<int> addUser(Company company) async {
   static Future<List<Company>> getUsers() async {
     //fetching data to display details.....
     final dbClient = await db();
+    
+
     final List<Map<String, dynamic>> maps = await dbClient.query('users');
+     
 
 
 
 return List.generate(maps.length, (i) {
       return Company(
         id: maps[i]['id'],
+        
         coname: maps[i]['coname'],
         coadd: maps[i]['coadd'],
         cophone: maps[i]['cophone'],
         email: maps[i]['email'],
+        companyID : maps[i]['companyID'],
         contactphone: maps[i]['contactphone'],
+        
         // gstnum: maps[i]['gstnum'],
         // qnum: maps[i]['qnum'],
         // qdate: maps[i]['qdate'],
@@ -107,7 +136,12 @@ static Future<int> deleteUser(int id) async {
     whereArgs: [id],
   );
 }
-
+static Future<List<Map<String, dynamic>>> rawQuery(String query, List<String> list) async {
+  final dbClient = await db();
+  print(db());
+  
+  return dbClient.rawQuery(query,list);
+}
 
 
 
@@ -129,10 +163,14 @@ static Future<List<Customer>> getCustomers() async {
   return List.generate(maps.length, (i) {
     return Customer(
       id1: maps[i]['id'],
+      customerId:maps[i]['customerID'], 
       cuname: maps[i]['cuname'],
       cuadd: maps[i]['cuadd'],
       cuphone: maps[i]['cuphone'],
       cuemail: maps[i]['cuemail'],
+      company_id: maps[i]['company_id'],
+      itemID: maps[i]['itemID'],
+      amt: maps[i]['amt'],
      
     );
   });
@@ -190,14 +228,47 @@ return List.generate(maps.length, (i) {
       );
     });
   }
-
+//-----------------------------Invoice details-----------------------------
  
+//  static Future<int> addInvoice(Company company) async {
+//     // insert data to table
+//     final dbClient = await db();
+//     return dbClient.insert('invoices', company.toMap(),
+//         conflictAlgorithm:
+//             sql.ConflictAlgorithm.replace); // add conflictAlgorithm
+//   }
+
+//   static Future<List<Invoice>> getInvoice() async {
+//     //fetching data to display details.....
+//     final dbClient = await db();
+//     final List<Map<String, dynamic>> maps = await dbClient.query('invoices');
+
+
+
+// return List.generate(maps.length, (i) {
+//       return Invoice(
+//         id4: maps[i]['id'],
+
+//         // iconame: maps[i]['iconame'],
+//         // icoadd: maps[i]['icoadd'],
+//         // icophone: maps[i]['icophone'],
+//         // iemail: maps[i]['iemail'],
+//         // icontactphone: maps[i]['icontactphone'],
+//         // icuname: maps[i]['icuname'],
+//         // icuadd: maps[i]['icuadd'],
+//         // icuemail: maps[i]['icuemail'],
+//         // icuphone: maps[i]['icuphone'],
+  
+        
+//       );
+//     });
+  }
 
 
 
 
 
 
-}
+
 
 

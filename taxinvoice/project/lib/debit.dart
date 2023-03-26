@@ -1,163 +1,175 @@
 import 'package:flutter/material.dart';
 
-import 'DashBoard.dart';
+class Item {
+  String ID;
+  String name;
+  int quantity;
+  double price;
 
-
-class DebitForm extends StatefulWidget {
-  @override
-  _DebitFormState createState() => _DebitFormState();
+  Item(this.ID, this.name, this.quantity, this.price);
 }
 
-class _DebitFormState extends State<DebitForm> {
-  final _formKey = GlobalKey<FormState>();
+class ItemTable extends StatefulWidget {
+  @override
+  _ItemTableState createState() => _ItemTableState();
+}
 
-  String _debitType = '';
-  double _debitAmount = 0.0;
-  String _date ='';
+class _ItemTableState extends State<ItemTable> {
+  List<Item> _items = [];
+  TextEditingController _itemID = TextEditingController();
+  TextEditingController _itemNameController = TextEditingController();
+  TextEditingController _quantityController = TextEditingController();
+  TextEditingController _priceController = TextEditingController();
+  TextEditingController _customerID = TextEditingController();
+  TextEditingController _customerName = TextEditingController();
+
+  void _addItem() {
+    String ID = _itemID.text;
+    String name = _itemNameController.text;
+    int quantity = int.parse(_quantityController.text);
+    double price = double.parse(_priceController.text);
+
+    setState(() {
+      _items.add(Item(ID, name, quantity, price));
+    });
+    _itemID.clear();
+    _itemNameController.clear();
+    _quantityController.clear();
+    _priceController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Debit Form'),
-      ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors. black)),
-                      hintText: 'Enter the Invoice Number',
-                      labelText: 'Invoice Number',
-                      icon: Icon(Icons.receipt_long_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the invoice number' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-              SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors. black)),
-                      hintText: 'Enter the Date',
-                      labelText: 'Date',
-                      icon: Icon(Icons.calendar_month),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the date' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors. black)),
-                      hintText: 'Enter the Vendor',
-                      labelText: 'Vendor',
-                      icon: Icon(Icons.person_2_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the vendor' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-                SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors. black)),
-                      hintText: 'Enter the Account number',
-                      labelText: 'Account Number',
-                      icon: Icon(Icons.account_circle_outlined  ),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the account number' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-              SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Enter the Debit Type',
-                      labelText: 'Debit Type',
-                      icon: Icon(Icons.credit_card_sharp),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the debit type' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-              SizedBox(height: 16.0),
-              SizedBox(height: 16.0),
-                TextFormField(
-                  decoration: InputDecoration(
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10),
-                          borderSide: BorderSide(color: Colors.black)),
-                      hintText: 'Enter the Debit Amount',
-                      labelText: 'Debit Amount',
-                      icon: Icon(Icons.payment_outlined),
-                      border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(10))),
-                  validator: (value) =>
-                      value!.isEmpty ? 'Please enter the amount' : null,
-                  onSaved: (value) => _date = value!,
-                ),
-              SizedBox(height: 16.0),
-                Row(
-                  children:[ 
-                    IconButton(onPressed: () { 
-                      Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => MyDashboard()));
-                    }, icon: Icon(Icons.arrow_back_ios_outlined)),
-                    SizedBox( 
-                      width: 200,
-                    ),
-                    Center(
-                    child: CircleAvatar(
-                      child: IconButton(
-                        onPressed: () {
-                          
-                          if (_formKey.currentState!.validate()) {
-                            _formKey.currentState!.save();
-                  
-                            //TODO: Add your code to save form data to database or send data to server
-                  
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text('Form data saved successfully.'),
-                              ),
-                            );
-                          }
-                        },
-                        icon: Icon(Icons.save_alt_outlined),
-                      ),
-                    ),
+        resizeToAvoidBottomInset: false,
+        appBar: AppBar(title: Text('Item Table')),
+        body: Column(children: [
+          Padding(
+              padding: EdgeInsets.all(10),
+              child: Container(
+                child: Column(children: [
+                  TextFormField(
+                    controller: _customerName,
+                    decoration: InputDecoration(
+                        labelText: 'Customer Name',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter Customer Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
                   ),
-                
-                //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
-                  ]
-                )
-            ],
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _customerID,
+                    decoration: InputDecoration(
+                        labelText: 'Customer ID',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter Customer ID',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _itemNameController,
+                    decoration: InputDecoration(
+                        labelText: 'Item ID',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter item ID',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _itemNameController,
+                    decoration: InputDecoration(
+                        labelText: 'Item Name',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter item name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _quantityController,
+                    decoration: InputDecoration(
+                        labelText: 'Item Quantity',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter item qunatity ',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextFormField(
+                    controller: _priceController,
+                    decoration: InputDecoration(
+                        labelText: 'Item Price',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter item price ',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                  SizedBox(
+                    height: 100,
+                  ),
+                  ElevatedButton(
+                    onPressed: _addItem,
+                    child: Text('Add Item'),
+                  ),
+                ]),
+              )),
+          Expanded(
+            child: ListView.builder(
+              itemCount: _items.length,
+              itemBuilder: (BuildContext context, int index) {
+                Item item = _items[index];
+                return ListTile(
+                  title: Text(item.name),
+                  subtitle: Text(
+                      '${item.quantity} x ${item.price} = ${item.quantity * item.price}'),
+                );
+              },
+            ),
           ),
-        ),
-      ),
-    );
+        ]));
   }
 }
+
+
+
+// TextFormField(
+//               controller: _customerName,
+//               decoration: InputDecoration(
+//                   focusedBorder: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(10),
+//                       borderSide: BorderSide(color: Colors.black)),
+//                   hintText: 'Enter the Name',
+//                   labelText: 'Name',
+//                   icon: Icon(Icons.person),
+//                   border: OutlineInputBorder(
+//                       borderRadius: BorderRadius.circular(10))),
+//               // validator: (value) =>
+//               //     value!.isEmpty ? 'Please enter customer name' : null,
+//               // onSaved: (value) =>
+//               //     _customerName = value! as TextEditingController,
+//             ),

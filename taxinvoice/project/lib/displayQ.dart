@@ -11,7 +11,7 @@ class Displaydatabase extends StatefulWidget {
 }
 
 class _DisplaydatabaseState extends State<Displaydatabase> {
-  List<Company> _company = [];
+List<Company> _company = [];
 
   @override
   void initState() {

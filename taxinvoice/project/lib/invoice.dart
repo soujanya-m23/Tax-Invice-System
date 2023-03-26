@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 //import 'package:taxinvoice/DashBoard.dart';
 
 import 'DashBoard.dart';
@@ -8,20 +11,68 @@ class InvoiceForm extends StatefulWidget {
 
   @override
   _InvoiceFormState createState() => _InvoiceFormState();
-  
 }
 
 class _InvoiceFormState extends State<InvoiceForm> {
-  // text controllers for user inputs
-  TextEditingController _clientNameController = TextEditingController();
-  TextEditingController _invoiceNumberController = TextEditingController();
-  TextEditingController _invoicePhoneController = TextEditingController();
-  TextEditingController _invoiceDateController = TextEditingController();
-  TextEditingController _totalAmountController = TextEditingController();
-  TextEditingController _quotationNumberController = TextEditingController();
-  TextEditingController _quotationDateController = TextEditingController();
+
+ String _invoiceNumber = '';
+  String _invoiceDate = '';
+  void _generateInvoice() {
+    print("Generating invoice");
+    setState(() {
+      _invoiceNumber = _generateInvoiceNumber();
+      _invoiceDate = _generateInvoiceDate();
+
+      
+    });
+  }
+  String _generateInvoiceNumber() {
+    // Get today's date
+    final now = DateTime.now();
+     final formatter = DateFormat('yyyyMMdd');
+    final formattedDate = formatter.format(now);
+     final rand = Random();
+    final randomNum = rand.nextInt(9000) + 1000;
+
+    // Combine the date and random number to form the invoice number
+    final invoiceNum = '$formattedDate$randomNum';
+     return invoiceNum;
+  }
+
+    String _generateInvoiceDate() {
+    // Get today's date
+    final now = DateTime.now();
+
+    // Format date as yyyy-MM-dd
+    final formatter = DateFormat('yyyy-MM-dd');
+    final formattedDate = formatter.format(now);
+
+    return formattedDate;
+  }
+
+    
   
+
+
+  TextEditingController _companyName = TextEditingController();
+  TextEditingController _companyAddress = TextEditingController();
+  TextEditingController _companyPhone = TextEditingController();
+  TextEditingController _email = TextEditingController();
+  TextEditingController _contactphone = TextEditingController();
+  TextEditingController _customerName = TextEditingController();
+  TextEditingController _customerAddress = TextEditingController();
+  TextEditingController _customerPhone = TextEditingController();
+  TextEditingController _customeremail = TextEditingController();
+
+  TextEditingController _invoiceNumberController = TextEditingController();
+  TextEditingController _invoiceDateController = TextEditingController();
+
   var _formKey;
+   @override
+  void initState() {
+    super.initState();
+    _generateInvoice();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,342 +83,246 @@ class _InvoiceFormState extends State<InvoiceForm> {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: _formKey,
-            child:Column(
-            
+          child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                'Client Name',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _clientNameController,
+              TextFormField(
                 
-                decoration: InputDecoration(
-                  hintText: 'Enter client name',
-                  border: OutlineInputBorder(),
-                  
-                ),
-                
-              ),
-              SizedBox(height: 16),
+            decoration: InputDecoration(
+              labelText: 'Invoice Number',
+            ),
+            initialValue: _invoiceNumber,
+            readOnly: true,
+          ),
+          TextFormField(
+            decoration: InputDecoration(
+              labelText: 'Invoice Date',
+            ),
+            initialValue: _invoiceDate,
+            readOnly: true,
+          ),
+          SizedBox(height: 16.0),
+          ElevatedButton(
+            child: Text('Generate Invoice'),
+            onPressed: _generateInvoice,
+          ),
+          SizedBox(
+            height: 25,
+          ),
+               Text(
+          'Company Details',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 16.0,
+          ),
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+          controller: _companyName,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black)),
+              hintText: 'Enter the Comapany Name',
+              labelText: 'Name',
+              icon: Icon(Icons.person),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10))),
+          ),
+           SizedBox(height: 16.0),
+          TextFormField(
+          controller: _companyAddress,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black)),
+              hintText: 'Enter the company Address',
+              labelText: 'Address',
+              icon: Icon(Icons.location_city),
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10))),
+          ),
+                  SizedBox(height: 16.0),
+          TextFormField(
+          controller: _companyPhone,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black)),
+              hintText: 'Enter the company phone',
+              labelText: 'Phone',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              icon: Icon(Icons.phone)),),
+               SizedBox(height: 16.0),
+          TextFormField(
+          controller: _email,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black)),
+              hintText: 'Enter the company  Email',
+              labelText: 'Email',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              icon: Icon(Icons.email)),),
+              SizedBox(height: 16.0),
+          TextFormField(
+          controller: _contactphone,
+          decoration: InputDecoration(
+              focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(10),
+                  borderSide: BorderSide(color: Colors.black)),
+              hintText: 'Enter the alternate number',
+              labelText: 'Additional Conatact number ',
+              border:
+                  OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+              icon: Icon(Icons.phone_android)),),
+              SizedBox(height: 25,),
               Text(
-                'Phone',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _invoicePhoneController,
-                decoration: InputDecoration(
-                  hintText: 'Enter client phone',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Invoice Number',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _invoiceNumberController,
-                decoration: InputDecoration(
-                  hintText: 'Enter invoice number',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Invoice Date',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _invoiceDateController,
-                decoration: InputDecoration(
-                  hintText: 'Enter invoice date',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Total Amount',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _totalAmountController,
-                decoration: InputDecoration(
-                  hintText: 'Enter total amount',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Quotation Number',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _quotationNumberController,
-                decoration: InputDecoration(
-                  hintText: 'Enter quotation number',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              SizedBox(height: 16),
-              Text(
-                'Quotation Date',
-                style: TextStyle(fontSize: 16),
-              ),
-              TextField(
-                controller: _quotationDateController,
-                decoration: InputDecoration(
-                  hintText: 'Enter quotation date',
-                  border: OutlineInputBorder(),
-                ),
-              ),
+            'Customer Details',
+            style: TextStyle(
+              fontWeight: FontWeight.bold,
+              fontSize: 16.0,
+            ),
+          ),
+          SizedBox(height: 16.0),
+          
+          SizedBox(
+            height: 13,
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _customerName,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the customer Name',
+                labelText: 'Name',
+                icon: Icon(Icons.person),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter customer name' : null,
+            // onSaved: (value) =>
+            //     _customerName = value! as TextEditingController,
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _customerAddress,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the customer Address',
+                labelText: 'Address',
+                icon: Icon(Icons.location_city),
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10))),
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter customer name' : null,
+            // onSaved: (value) =>
+            //     _customerName = value! as TextEditingController,
+          ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _customerPhone,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter the customer phone',
+                labelText: 'Phone',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.phone)),),
+            // validator: (value) =>
+            //     value!.isEmpty ? 'Please enter customer phone number' : null,
+            // keyboardType: TextInputType.phone,
+            // onSaved: (value) =>
+            //     _customerPhone = value! as TextEditingController,
+          // ),
+          SizedBox(height: 16.0),
+          TextFormField(
+            controller: _customeremail,
+            decoration: InputDecoration(
+                focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.black)),
+                hintText: 'Enter Customer Email',
+                labelText: 'Email',
+                border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10)),
+                icon: Icon(Icons.phone)),),
+          SizedBox(width: 30),
+              // SizedBox(height: 16),
+              // Text(
+              //   'Quotation Number',
+              //   style: TextStyle(fontSize: 16),
+              // ),
+              // TextField(
+              //   controller: _quotationNumberController,
+              //   decoration: InputDecoration(
+              //     hintText: 'Enter quotation number',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
+              // SizedBox(height: 16),
+              // Text(
+              //   'Quotation Date',
+              //   style: TextStyle(fontSize: 16),
+              // ),
+              // TextField(
+              //   controller: _quotationDateController,
+              //   decoration: InputDecoration(
+              //     hintText: 'Enter quotation date',
+              //     border: OutlineInputBorder(),
+              //   ),
+              // ),
               SizedBox(height: 16),
               Center(
-                child: Row(
-                children:[ 
-                  IconButton(onPressed: () { 
-                    Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => MyDashboard()));
-                  }, icon: Icon(Icons.arrow_back_ios_outlined)),
-                  SizedBox( 
+                child: Row(children: [
+                  IconButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => MyDashboard()));
+                      },
+                      icon: Icon(Icons.arrow_back_ios_outlined)),
+                  SizedBox(
                     width: 200,
                   ),
-                  Center(
-                  child: CircleAvatar(
-                    child: IconButton(
-                      onPressed: () {
-                        
-                        if (_formKey.currentState!.validate()) {
-                          _formKey.currentState!.save();
-                
-                          //TODO: Add your code to save form data to database or send data to server
-                
-                          
-                        }
-                      },
-                      icon: Icon(Icons.save_alt_outlined),
-                    ),
-                  ),
-                ),
-                
-                //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
-                ]
-                ),
+                  //   Center(
+                  //   child: IconButton(
+                  //     // onPressed: () {
+
+                  //     //   if (_formKey.currentState!.validate()) {
+                  //     //     _formKey.currentState!.save();
+
+                  //     //     //TODO: Add your code to save form data to database or send data to server
+
+                  //     //   }
+                  //     // },
+                  //     icon: Icon(Icons.save_alt_outlined),
+                  //   ),
+                  // ),
+
+                  //IconButton(onPressed: () {}, icon: Icon(Icons.arrow_back))
+                ]),
               ),
             ],
           ),
         ),
       ),
-      ),
     );
   }
 }
 
+  
+  
 
 
-// import 'package:flutter/material.dart';
 
-// class InvoiceForm extends StatefulWidget {
-//   // late final String clientName;
-//   // late final String invoiceNumber;
-//   // late final String invoiceDate;
-//   // late final String totalAmount;
-//   // late final String quotationNumber;
-//   // late final String quotationDate;
 
-//   // const InvoiceForm({
-//   //   Key? key,
-//   //   required this.clientName,
-//   //   required this.invoiceNumber,
-//   //   required this.invoiceDate,
-//   //   required this.totalAmount,
-//   //   required this.quotationNumber,
-//   //   required this.quotationDate,
-//   // }) : super(key: key);
-
-//   @override
-//   _InvoiceFormState createState() => _InvoiceFormState();
-// }
-
-// class _InvoiceFormState extends State<InvoiceForm> {
-//   // text controllers for user inputs
-//   TextEditingController _clientNameController = TextEditingController();
-//   TextEditingController _invoiceNumberController = TextEditingController();
-//   TextEditingController _invoiceDateController = TextEditingController();
-//   TextEditingController _totalAmountController = TextEditingController();
-//   TextEditingController _quotationNumberController = TextEditingController();
-//   TextEditingController _quotationDateController = TextEditingController();
-
-//   // form key for validation
-//   final _formKey = GlobalKey<FormState>();
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     // set initial values for text controllers
-//     // _clientNameController.text = widget.clientName;
-//     // _invoiceNumberController.text = widget.invoiceNumber;
-//     // _invoiceDateController.text = widget.invoiceDate;
-//     // _totalAmountController.text = widget.totalAmount;
-//     // _quotationNumberController.text = widget.quotationNumber;
-//     // _quotationDateController.text = widget.quotationDate;
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Invoice Form'),
-//       ),
-//       body: SingleChildScrollView(
-//         child: Padding(
-//           padding: const EdgeInsets.all(16.0),
-//           child: Form(
-//             key: _formKey,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: [
-//                 Text(
-//                   'Customer Details',
-//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   'Client Name',
-//                   style: TextStyle(fontSize: 16),
-//                 ),
-//                 TextFormField(
-//                   controller: _clientNameController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter client name',
-//                     border: OutlineInputBorder(),
-//                   ),
-//                   validator: (value) {
-//                     if (value == null || value.isEmpty) {
-//                       return 'Please enter client name';
-//                     }
-//                     return null;
-//                   },
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   'Invoice Details',
-//                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   'Invoice Number',
-//                   style: TextStyle(fontSize: 16),
-//                 ),
-//                 TextFormField(
-//                   controller: _invoiceNumberController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter invoice number',
-//                     border: OutlineInputBorder(),
-//                   ),
-//                   validator: (value) {
-//                     if (value == null || value.isEmpty) {
-//                       return 'Please enter invoice number';
-//                     }
-//                     return null;
-//                   },
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   'Invoice Date',
-//                   style: TextStyle(fontSize: 16),
-//                 ),
-//                 TextFormField(
-//                   controller: _invoiceDateController,
-//                   decoration: InputDecoration(
-//                     hintText: 'Enter invoice date',
-//                     border: OutlineInputBorder(),
-//                   ),
-//                   validator: (value) {
-//                     if (value == null || value.isEmpty) {
-//                       return 'Please enter invoice date';
-//                     }
-//                     return null;
-//                   },
-//                 ),
-//                 SizedBox(height: 16),
-//                 Text(
-//                   'Total Amount',
-//                   style: TextStyle(fontSize: 16),
-//                 ),
-//                 // SizedBox(
-//                 //   child: TextFormField(
-//                 //                 SizedBox(height: 16),
-//                 //             Text(
-//                 //               'Quotation Number',
-//                 //               style: TextStyle(fontSize: 16),
-//                 //             ),
-//                 //             TextFormField(
-//                 //               controller: _quotationNumberController,
-//                 //               decoration: InputDecoration(
-//                 //   hintText: 'Enter quotation number',
-//                 //   border: OutlineInputBorder(),
-//                 //               ),
-//                 //               validator: (value) {
-//                 //   if (value == null || value.isEmpty) {
-//                 //     return 'Please enter quotation number';
-//                 //   }
-//                 //   return null;
-//                 //               },
-//                 //             ),
-//                 //             SizedBox(height: 16),
-//                 //             Text(
-//                 //               'Quotation Date',
-//                 //               style: TextStyle(fontSize: 16),
-//                 //             ),
-//                 //             TextFormField(
-//                 //               controller: _quotationDateController,
-//                 //               decoration: InputDecoration(
-//                 //   hintText: 'Enter quotation date',
-//                 //   border: OutlineInputBorder(),
-//                 //               ),
-//                 //               validator: (value) {
-//                 //   if (value == null || value.isEmpty) {
-//                 //     return 'Please enter quotation date';
-//                 //   }
-//                 //   return null;
-//                 //               },
-//                 //             ),
-//                 //             SizedBox(height: 32),
-//                 //             Center(
-//                 //               child: ElevatedButton(
-//                 //   onPressed: () {
-//                 //     // validate form
-//                 //     if (_formKey.currentState!.validate()) {
-//                 //       // save user inputs
-//                 //       String clientName = _clientNameController.text;
-//                 //       String invoiceNumber = _invoiceNumberController.text;
-//                 //       String invoiceDate = _invoiceDateController.text;
-//                 //       String totalAmount = _totalAmountController.text;
-//                 //       String quotationNumber = _quotationNumberController.text;
-//                 //       String quotationDate = _quotationDateController.text;
-                
-//                 //       // do something with user inputs
-//                 //       // ...
-                
-//                 //       // navigate back to previous screen
-//                 //       Navigator.pop(context);
-//                 //     }
-//                 //   },
-//                 //   child: Text('Save'),
-//                 //               ),
-//                 //             ),
-//                 //   ),
-//                 // )
-//           ],
-//         ),
-//       ),
-//     ),
-//   ),
-// );
-//   }
-// }

@@ -205,8 +205,8 @@ class _TransactionDetailState extends State<TransactionDetailForm> {
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10),
                       borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter IFSC Code',
-                  labelText: 'Bank IFSC Code',
+                  hintText: 'Enter IFSC ',
+                  labelText: 'Bank IFSC ',
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10)),
                   icon: Icon(Icons.account_circle)),

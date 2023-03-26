@@ -82,6 +82,10 @@ flutter:
       - assets/bank.jpg
       - assets/customer.png
       - assets/company.jpg
+      - assets/logo.jpg
+      - assets/logo1.jpg
+      - assets/item.jpg
+
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
@@ -95,7 +99,7 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-    - family: OpenSans Regular
+    - family: OpenSans
       fonts:
         - asset: assets/fonts/open-sans/OpenSans-Regular.ttf
         - asset: assets/fonts/open-sans/OpenSans-Italic.ttf

@@ -65,6 +65,19 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 child: Column(
                 children: [
                   SizedBox(height: 30,),
+                  Column(
+                    children: [
+                      Text('Customer ID:',style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.black,),),
+                      SizedBox(width: 10),
+             
+                     Text('${user1.customerId}',style:const TextStyle(fontSize: 20)),
+                    ],
+                  ),
+                
+                  SizedBox(height: 30),
                 
                   Column(
                     children: [
@@ -74,7 +87,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   color: Colors.black,),),
                       SizedBox(width: 10),
              
-                     Text('${user1.cuname}',style:const TextStyle(fontSize: 20)),
+                     Expanded(child: Text('${user1.cuname}',style:const TextStyle(fontSize: 20))),
                     ],
                   ),
                 
@@ -88,7 +101,8 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   color: Colors.black,),),
                 
                       SizedBox(width: 20),
-                      Text('${user1.cuadd}',style:TextStyle(fontSize: 20)),
+                      Expanded
+                      (child: Text('${user1.cuadd}',style:TextStyle(fontSize: 20))),
                    ],
                   ),
                 
@@ -101,7 +115,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.cuphone}',style:TextStyle(fontSize: 20),),
+                      Expanded(child: Text('${user1.cuphone}',style:TextStyle(fontSize: 20),)),
                     ],
                   ),
                 
@@ -114,9 +128,30 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.cuemail}',style:TextStyle(fontSize: 20),),
+                      Expanded(child: Text('${user1.cuemail}',style:TextStyle(fontSize: 20),)),
                     ],
                   ),
+                   Column(
+                    children: [
+                      Text('COMPANY ID:',style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.black,),),
+                      SizedBox(width: 20),
+                      Expanded(child: Text('${user1.company_id}',style:TextStyle(fontSize: 20),)),
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      Text('Item ID:',style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.black,),),
+                      SizedBox(width: 20),
+                      Expanded(child: Text('${user1.itemID}',style:TextStyle(fontSize: 20),)),
+                    ],
+                  ),
+                 
                  
                 
                   SizedBox(height: 50),
