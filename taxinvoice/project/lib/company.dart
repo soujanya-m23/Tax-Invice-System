@@ -52,13 +52,15 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
     _companyAddress = TextEditingController(text: widget.user?.coadd ?? '');
     _companyPhone = TextEditingController(text: widget.user?.cophone ?? '');
     _email = TextEditingController(text: widget.user?.email ?? '');
-     _companyID =TextEditingController(
-        text: widget.user?.companyID != null ? widget.user!.companyID.toString() : '');
+    _companyID = TextEditingController(
+        text: widget.user?.companyID != null
+            ? widget.user!.companyID.toString()
+            : '');
 
     // _quotationumController =TextEditingController(text: widget.user?.qnum ?? '');
     // _quotationDateController =TextEditingController(text: widget.user?.qdate ?? '');
     _contactphone = TextEditingController(text: widget.user?.coname ?? '');
-   
+
     //-----------------------------------------------------------
     // this._Category.add({"id": 1, "label": "Hardware"});
     // this._Category.add({"id": 2, "label": "Software"});
@@ -71,14 +73,12 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
     _companyName.dispose();
     _companyAddress.dispose();
     _companyPhone.dispose();
-     _email.dispose();
-        _companyID.dispose();
+    _email.dispose();
+    _companyID.dispose();
     // _gstnum.dispose();
     // _quotationumController.dispose();
     // _quotationDateController.dispose();
     _contactphone.dispose();
- 
-   
 
     super.dispose();
   }
@@ -92,7 +92,6 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
       email: _email.text,
       companyID: int.tryParse(_companyID.text) ?? 0,
       contactphone: _contactphone.text,
-      
 
       //gstnum: _gstnum.text,
       // qnum: _quotationumController.text,
@@ -140,8 +139,6 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
           _companyID.clear();
           _contactphone.clear();
 
-          
-          
           //_gstnum.clear();
           // _quotationumController.clear();
           // _quotationDateController.clear();
@@ -169,7 +166,6 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
           _email.clear();
           _companyID.clear();
           _contactphone.clear();
-          
 
           //_gstnum.clear();
           // _quotationumController.clear();
@@ -208,6 +204,38 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
           SizedBox(height: 16.0),
           TextFormField(
             controller: _companyName,
+            // onTap: () async {
+            //   print("Tapped");
+
+            //   final query = 'SELECT * FROM users';
+            //   final result = await DatabaseHelper.rawQuery(query
+            //   //  [
+            //   //   _companyName.text,
+            //   //   _companyAddress.text,
+            //   //   _companyPhone.text,
+            //   //   _email.text,
+            //   //   _contactphone.text
+            //   // ]
+            //   );
+             // print(result);
+             // Text(result);
+            //   if (result.isNotEmpty) {
+            //     setState(() {
+            //       for (var row in result) {
+            //         var companyName = row['coname'];
+            //          var companyAddress = row['coadd'];
+            //          var companyPhone = row['cophone'];
+            //          var email = row['coemail'];
+            //         var companyID= row['companyID'];
+            //         var contactphone = row['contactphone'];
+            //       }
+            //     });
+            //   } else {
+            //     setState(() {
+            //       _companyID.text = '';
+            //     });
+            //   }
+            // },
             decoration: InputDecoration(
                 focusedBorder: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
@@ -280,7 +308,7 @@ class _QuotationTaxInvoiceFormState extends State<CompanyForm> {
             // onSaved: (value) =>
             //     _companyPhone = value! as TextEditingController,
           ),
-           SizedBox(height: 16.0),
+          SizedBox(height: 16.0),
           TextFormField(
             controller: _companyID,
             decoration: InputDecoration(

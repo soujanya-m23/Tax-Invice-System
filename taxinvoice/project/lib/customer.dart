@@ -14,8 +14,8 @@ import 'DashBoard.dart';
 import 'db_helper.dart';
 
 class CustomerForm extends StatefulWidget {
-  final Customer? customers;
-  const CustomerForm({super.key, this.customers});
+  final Customer? customers1;
+  const CustomerForm({super.key, this.customers1});
 
   @override
   _customerFormState createState() => _customerFormState();
@@ -30,9 +30,7 @@ class _customerFormState extends State<CustomerForm> {
   TextEditingController _customeremail = TextEditingController();
   TextEditingController _companyID = TextEditingController();
   TextEditingController _itemID = TextEditingController();
-   TextEditingController _amt = TextEditingController();
-  
-
+  TextEditingController _amt = TextEditingController();
 
   var customer_val;
   // TextEditingController _bankName = TextEditingController();
@@ -44,20 +42,22 @@ class _customerFormState extends State<CustomerForm> {
   void initState() {
     super.initState();
 
-    _customerID = TextEditingController(
-        text: widget.customers?.customerId != null ? widget.customers!.customerId.toString() : '');
-    _customerName = TextEditingController(text: widget.customers?.cuname ?? '');
-    _customerAddress =  TextEditingController(text: widget.customers?.cuadd ?? '');
-    _customerPhone = TextEditingController(text: widget.customers?.cuphone ?? '');
-    TextEditingController(text: widget.customers?.cuemail ?? '');
-    _companyID = TextEditingController(
-        text: widget.customers?.company_id != null
-            ? widget.customers!.company_id.toString():'');
-    _itemID =TextEditingController(text: widget.customers?.itemID ?? '');
+    _customerID = TextEditingController(text: widget.customers1?.customerId != null
+            ? widget.customers1!.customerId.toString(): '');
+    _customerName = TextEditingController(text: widget.customers1?.cuname ?? '');
+    _customerAddress =TextEditingController(text: widget.customers1?.cuadd ?? '');
+    _customerPhone =TextEditingController(text: widget.customers1?.cuphone ?? '');
+   _customeremail= TextEditingController(text: widget.customers1?.cuemail ?? '');
+    // _companyID = TextEditingController(
+    //     text: widget.customers?.company_id != null
+    //         ? widget.customers!.company_id.toString()
+    //         : '');
+    _itemID = TextEditingController(text: widget.customers1?.itemID ?? '');
     _amt = TextEditingController(
-        text: widget.customers?.amt != null ? widget.customers!.amt.toString() : '');
+        text: widget.customers1?.amt != null
+            ? widget.customers1!.amt.toString()
+            : '');
 
-          
     // _bankName = TextEditingController(text: widget.customers?.bname ?? '');
     // _bankAddress = TextEditingController(text: widget.customers?.badd ?? '');
     // _bankAccountNumber =
@@ -72,7 +72,7 @@ class _customerFormState extends State<CustomerForm> {
     _customerAddress.dispose();
     _customerPhone.dispose();
     _customeremail.dispose();
-    _companyID.dispose();
+   // _companyID.dispose();
     _itemID.dispose();
     _amt.dispose();
 
@@ -86,14 +86,14 @@ class _customerFormState extends State<CustomerForm> {
 
   void _handleSubmit() async {
     final user1 = Customer(
-      id1: widget.customers?.id1,
+      id1: widget.customers1?.id1,
       customerId: int.tryParse(_customerID.text) ??
           0, // use the id of the user being edited, if provided
       cuname: _customerName.text,
       cuadd: _customerAddress.text,
       cuphone: _customerPhone.text,
       cuemail: _customeremail.text,
-      company_id: int.tryParse(_companyID.text) ?? 0,
+      //company_id: int.tryParse(_companyID.text) ?? 0,
       itemID: _itemID.text,
       amt: double.tryParse(_amt.text) ?? 0,
       // bname: _bankName.text,
@@ -104,12 +104,12 @@ class _customerFormState extends State<CustomerForm> {
     bool shouldProceed = await showDialog(
         context: context,
         builder: (context) => AlertDialog(
-              title: Text(widget.customers == null
+              title: Text(widget.customers1 == null
                   ? 'Add User'
-                  : '   User ${widget.customers!.cuname}?'),
-              content: Text(widget.customers == null
+                  : '   User ${widget.customers1!.cuname}?'),
+              content: Text(widget.customers1 == null
                   ? 'Are you sure you want to add this user?'
-                  : 'Are you sure you want to update ${widget.customers!.cuname}?'),
+                  : 'Are you sure you want to update ${widget.customers1!.cuname}?'),
               actions: [
                 TextButton(
                     onPressed: () {
@@ -126,7 +126,7 @@ class _customerFormState extends State<CustomerForm> {
 
     if (shouldProceed) {
       int result;
-      if (widget.customers == null) {
+      if (widget.customers1 == null) {
         result = await DatabaseHelper.addCustomer(user1);
         if (result != null && result > 0) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -141,7 +141,7 @@ class _customerFormState extends State<CustomerForm> {
           _customerAddress.clear();
           _customerPhone.clear();
           _customeremail.clear();
-          _companyID.clear();
+         // _companyID.clear();
           _itemID.clear();
           _amt.clear();
           // _bankName.clear();
@@ -171,8 +171,8 @@ class _customerFormState extends State<CustomerForm> {
           _customerAddress.clear();
           _customerPhone.clear();
           _customeremail.clear();
-          _companyID.clear();
-           _itemID.clear();
+          //_companyID.clear();
+          _itemID.clear();
           _amt.clear();
           //  _bankName.clear();
           //  _bankAddress.clear();
@@ -194,7 +194,8 @@ class _customerFormState extends State<CustomerForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Customer Details")),
-        body: ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
+        body: 
+        ListView(padding: EdgeInsets.all(16.0), children: <Widget>[
           Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Text(
               'Customer Details',
@@ -248,7 +249,8 @@ class _customerFormState extends State<CustomerForm> {
                   labelText: 'ID',
                   icon: Icon(Icons.person),
                   border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10))),),
+                      borderRadius: BorderRadius.circular(10))),
+            ),
             SizedBox(height: 16.0),
             TextFormField(
               controller: _customerName,
@@ -315,19 +317,19 @@ class _customerFormState extends State<CustomerForm> {
                       borderRadius: BorderRadius.circular(10)),
                   icon: Icon(Icons.email)),
             ),
-            SizedBox(height: 16.0),
-            TextFormField(
-              controller: _companyID,
-              decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: BorderSide(color: Colors.black)),
-                  hintText: 'Enter Comapany ID',
-                  labelText: 'Comapny ID',
-                  border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10)),
-                  icon: Icon(Icons.numbers_rounded)),
-            ),
+            // SizedBox(height: 16.0),
+            // TextFormField(
+            //   controller: _companyID,
+            //   decoration: InputDecoration(
+            //       focusedBorder: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10),
+            //           borderSide: BorderSide(color: Colors.black)),
+            //       hintText: 'Enter Comapany ID',
+            //       labelText: 'Comapny ID',
+            //       border: OutlineInputBorder(
+            //           borderRadius: BorderRadius.circular(10)),
+            //       icon: Icon(Icons.numbers_rounded)),
+            // ),
             SizedBox(height: 16.0),
             TextFormField(
               controller: _itemID,
@@ -341,7 +343,9 @@ class _customerFormState extends State<CustomerForm> {
                       borderRadius: BorderRadius.circular(10)),
                   icon: Icon(Icons.numbers_outlined)),
             ),
-            SizedBox(height:25 ,),
+            SizedBox(
+              height: 25,
+            ),
             TextFormField(
               controller: _amt,
               decoration: InputDecoration(
@@ -354,8 +358,9 @@ class _customerFormState extends State<CustomerForm> {
                       borderRadius: BorderRadius.circular(10)),
                   icon: Icon(Icons.money)),
             ),
-            SizedBox(width: 30),
-            SizedBox(height: 32.0),
+            SizedBox(width: 30,
+            height: 50,),
+            
             Row(children: [
               IconButton(
                   onPressed: () {
@@ -372,6 +377,7 @@ class _customerFormState extends State<CustomerForm> {
               ),
               SizedBox(
                 width: 40,
+                height: 50,
               ),
               ElevatedButton(
                 onPressed: () {
@@ -383,27 +389,27 @@ class _customerFormState extends State<CustomerForm> {
                 child: Text("see data inserted "),
               ),
             ]),
-            Column(
-              children: [
-                SizedBox(
-                  height: 40,
-                ),
-                Center(
-                  child: TextButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ItemTable()));
-                      },
-                      child: Text(
-                        "Item Details",
-                        style: TextStyle(
-                            fontSize: 25, decoration: TextDecoration.underline),
-                      )),
-                ),
-              ],
-            ),
+            // Column(
+            //   children: [
+            //     SizedBox(
+            //       height: 40,
+            //     ),
+            //     // Center(
+            //     //   child: TextButton(
+            //     //       onPressed: () {
+            //     //         Navigator.push(
+            //     //             context,
+            //     //             MaterialPageRoute(
+            //     //                 builder: (context) => ItemTable()));
+            //     //       },
+            //     //       child: Text(
+            //     //         "Item Details",
+            //     //         style: TextStyle(
+            //     //             fontSize: 25, decoration: TextDecoration.underline),
+            //     //       )),
+            //     // ),
+            //   ],
+            // ),
           ])
         ]));
   }

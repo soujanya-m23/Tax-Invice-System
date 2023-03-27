@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:project/customer.dart';
+import 'package:project/invoice%20demo.dart';
 import 'package:project/invoice_page.dart';
 import 'package:project/report.dart';
 import 'package:project/transaction%20details.dart';
+import 'invoice exp.dart';
 
 import 'debit.dart';
 import 'invoice.dart';
@@ -34,15 +36,16 @@ class _MyDashboardState extends State<MyDashboard> {
       backgroundColor: Colors.lightBlueAccent,
       body: Stack(
         children: <Widget>[
-          Container(
-            height: size.height * 2,
-            decoration: BoxDecoration(
-                image: DecorationImage(
-                    alignment: Alignment.topCenter,
-                    image: Image.network(
-                            'https://mars-metcdn-com.global.ssl.fastly.net/content/uploads/sites/101/2019/04/30162428/Top-Header-Background.png')
-                        .image)),
-          ),
+          // Container(
+          //   height: size.height * 2,
+          //   decoration: BoxDecoration(
+          //       image: DecorationImage(
+          //           alignment: Alignment.topCenter,
+          //           image: Image.network(
+          //                   'https://mars-metcdn-com.global.ssl.fastly.net/content/uploads/sites/101/2019/04/30162428/Top-Header-Background.png')
+          //               .image)
+          //               ),
+          // ),
           SafeArea(
               //background,
               //greenOpacity,

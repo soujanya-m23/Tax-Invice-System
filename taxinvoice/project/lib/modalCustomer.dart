@@ -4,7 +4,7 @@ class Customer {
     final String cuname;
     final String cuadd;
     final String cuphone;
-    final int company_id;
+    
     final String itemID;
     final double amt;
     // final String bname;
@@ -15,7 +15,7 @@ class Customer {
   
   
 
-  Customer({this.id1,required this.customerId, required this.cuname, required this.cuadd, required this.cuphone,required this.cuemail,required this.company_id,required this.amt,required this.itemID});
+  Customer({this.id1,required this.customerId, required this.cuname, required this.cuadd, required this.cuphone,required this.cuemail,required this.amt,required this.itemID});
 
   Map<String, dynamic> toMap() {
     return {
@@ -26,7 +26,7 @@ class Customer {
       'cuadd': cuadd,
       'cuphone': cuphone,
       'cuemail' :cuemail,
-      'company_id' : company_id,
+      
       'itemID' : itemID,
       'amt' : amt,
     };
@@ -36,12 +36,11 @@ class Customer {
     return Customer(
 
       id1: map['id1'],
-      customerId: map['customerID'], 
+      customerId: map['customerId'], 
       cuname: map['cuname'],
       cuadd: map['cuadd'],
       cuphone: map['cuphone'],
       cuemail: map['cuemail'],
-      company_id: map['company_id'],
       itemID: map['itemID'],
       amt: map['amt'],
       // bname : map['bname'],

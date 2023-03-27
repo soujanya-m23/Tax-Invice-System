@@ -48,7 +48,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CustomerForm(customers: user1),
+                    builder: (context) => CustomerForm(customers1: user1),
                   ),
                 );
                 if (result != null) {
@@ -77,7 +77,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                     ],
                   ),
                 
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                 
                   Column(
                     children: [
@@ -87,11 +87,11 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   color: Colors.black,),),
                       SizedBox(width: 10),
              
-                     Expanded(child: Text('${user1.cuname}',style:const TextStyle(fontSize: 20))),
+                     Text('${user1.cuname}',style:const TextStyle(fontSize: 20)),
                     ],
                   ),
                 
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                 
                   Column(
                     children: [
@@ -101,12 +101,11 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   color: Colors.black,),),
                 
                       SizedBox(width: 20),
-                      Expanded
-                      (child: Text('${user1.cuadd}',style:TextStyle(fontSize: 20))),
+                      Text('${user1.cuadd}',style:TextStyle(fontSize: 20)),
                    ],
                   ),
                 
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                 
                   Column(
                     children: [
@@ -115,11 +114,11 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Expanded(child: Text('${user1.cuphone}',style:TextStyle(fontSize: 20),)),
+                      Text('${user1.cuphone}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
                 
-                  SizedBox(height: 30),
+                  SizedBox(height: 10),
                 
                 Column(
                     children: [
@@ -128,19 +127,20 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Expanded(child: Text('${user1.cuemail}',style:TextStyle(fontSize: 20),)),
+                      Text('${user1.cuemail}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
-                   Column(
-                    children: [
-                      Text('COMPANY ID:',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Expanded(child: Text('${user1.company_id}',style:TextStyle(fontSize: 20),)),
-                    ],
-                  ),
+                  SizedBox(height: 10),
+                  //  Column(
+                  //   children: [
+                  //     Text('COMPANY ID:',style: TextStyle(
+                  // fontWeight: FontWeight.bold,
+                  // fontSize: 20.0,
+                  // color: Colors.black,),),
+                  //     SizedBox(width: 20),
+                  //     Expanded(child: Text('${user1.company_id}',style:TextStyle(fontSize: 20),)),
+                  //   ],
+                  // ),
                   Column(
                     children: [
                       Text('Item ID:',style: TextStyle(
@@ -148,13 +148,24 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Expanded(child: Text('${user1.itemID}',style:TextStyle(fontSize: 20),)),
+                      Text('${user1.itemID}',style:TextStyle(fontSize: 20),),
+                    ],
+                  ),
+                  SizedBox(height: 10),
+                   Column(
+                    children: [
+                      Text('Amount:',style: TextStyle(
+                  fontWeight: FontWeight.bold,
+                  fontSize: 20.0,
+                  color: Colors.black,),),
+                      SizedBox(width: 20),
+                      Text('${user1.amt}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
                  
                  
                 
-                  SizedBox(height: 50),
+                 // SizedBox(height: 50),
                 
                   // add other desired attributes here
                  ] ),

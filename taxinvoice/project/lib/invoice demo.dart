@@ -3,7 +3,6 @@
 // import 'package:flutter/src/widgets/placeholder.dart';
 // import 'db_helper.dart';
 // import 'modalCompany.dart';
-// import 'DashBoard.dart';
 
 // class InvoicePage extends StatefulWidget {
 //   const InvoicePage({super.key});
@@ -13,28 +12,28 @@
 // }
 
 // class _InvoicePageState extends State<InvoicePage> {
-//   final String companyName= '';
+//   String companyName= '';
   
-// // final TextEditingController xyzController = TextEditingController() ;
+// final TextEditingController xyzController = TextEditingController() ;
   
-// // final TextEditingController ADDController = TextEditingController() ;
+// final TextEditingController ADDController = TextEditingController() ;
   
-// // final TextEditingController PhoneController = TextEditingController() ;
+// final TextEditingController PhoneController = TextEditingController() ;
   
-// // final TextEditingController IDController = TextEditingController() ;
+// final TextEditingController IDController = TextEditingController() ;
   
-// // final TextEditingController COPHONEController = TextEditingController() ;
+// final TextEditingController COPHONEController = TextEditingController() ;
   
-// // final TextEditingController EMAILController = TextEditingController() ;
+// final TextEditingController EMAILController = TextEditingController() ;
 
-//   String result = "";
-//   String _message = '';
+// //   String result = "";
+// //   String _message = '';
 // //  final String companyName = '';
-//   String companyAddress = '';
-//   String companyPhone = '';
-//   String companyID = '';
-//   String contactphone = '';
-//   String email = '';
+// //   String companyAddress = '';
+// //   String companyPhone = '';
+// //   String companyID = '';
+// //   String contactphone = '';
+// //   String email = '';
 //   @override
 //   Widget build(BuildContext context) {
 //     //var companyName;
@@ -49,128 +48,106 @@
 
 //               Container(
 //                 decoration: BoxDecoration(color: Colors.white),
-//                 child: Center(
-//                   child: Row(
-//                     children: [
-//                       // Image.asset(
-//                       //   'assets/logo1.jpg',
-//                       //   width: 150,
-//                       //   height: 130,
-//                       // ),
-                
-//                       SizedBox(width: 30),
-                
-//                       SizedBox(
-//                         width: 150,
-//                         height: 150,
-//                         child: InkWell(
-//                           // onTap: () async {
-//                           //   print("tapped");
-//                           //   final query = 'SELECT * FROM users';
-//                           //   final result = await DatabaseHelper.rawQuery(query);
-//                           //   print(result);
-                      
-//                           //   final companyName = result[0]['coname'];
-//                           //   print(companyName);
-                      
-                            
-//                           // },
-//                           child: ListTile(
-//                             onTap: () async {
-//                             print("tapped");
-//                             final query = 'SELECT * FROM users';
-//                             final result = await DatabaseHelper.rawQuery(query);
-//                             print(result);
-                      
-//                            final companyName = result[0]['coname'];
-//                             print(companyName);
-//                             },
-                      
-                            
-//                           // },
-//                             title: Text('${companyName}'
-//                             ,style: TextStyle(
-//                                     fontStyle: FontStyle.italic,
-//                                     fontWeight: FontWeight.bold,
-//                                     fontSize: 25,
-//                                     fontFamily: 'OpenSans'),
-//                                 textAlign: TextAlign.start,),
-//                                 subtitle: Text("Mlore\n9880438931\nc1\n90876756456\nsuj@gmail.com"),
-                            
-                              
-//                           //       onTap: () async {
-//                           //   print("tapped");
-//                           //   final query = 'SELECT * FROM users';
-//                           //   final result = await DatabaseHelper.rawQuery(query);
-//                           //   print(result);
-                      
-//                           //   final companyName = result[0]['coname'];
-//                           //   //xyzController.text = companyName;
-                      
-//                           //   print(companyName);
-                      
-                            
-//                           // },
-//                           //controller: xyzController,
-                                
-                                
-                              
-//                             ),
-                            
-//                           //     child: TextFormField(
-//                           //       minLines: 1,
-//                           //       maxLines: 4,
-//                           //       // "${companyName},\n$companyAddress\n$companyPhone\n$companyID\n$contactphone",
-//                           //       //companyName,
-//                           //       onTap: () async {
-//                           //   print("tapped");
-//                           //   final query = 'SELECT * FROM users';
-//                           //   final result = await DatabaseHelper.rawQuery(query);
-//                           //   print(result);
-                      
-//                           //   // final companyADD = result[1]['coadd'];
-//                           //   // final companyPhone=result[3]['cophone'];
-//                           //   // final company_ID =result[3]['companyID'];
-//                           //   // final contactPHONE = result[4]['contactphone'];
-//                           //   // final email_id =result[5]['email'];
-                      
-                      
-//                           //   // ADDController.text = companyName;
-//                           //   // PhoneController.text = companyPhone;
-//                           //   // IDController.text =company_ID;
-//                           //   // COPHONEController.text = contactPHONE;
-//                           //   // EMAILController.text = email_id;
-                      
-                      
-                      
-                      
-//                           //   // print(companyADD);
-//                           //   // print(companyPhone);
-//                           //   // print(company_ID);
-//                           //   // print(contactPHONE);
-//                           //   // print(email_id);
-                      
-                            
-//                           // },
-//                           //       style: TextStyle(
-//                           //         fontStyle: FontStyle.normal,
-//                           //         fontWeight: FontWeight.normal,
-//                           //         fontFamily: 'OpenSans',
-//                           //         fontSize: 15,
-//                           //       ),
-//                           //       textAlign: TextAlign.start,
-//                           //     ),
-                      
-//                             ),
-//                       ),
-//                     ]
-//                         ),
-//                 ),
-              
+//                 child: Row(
+//                   children: [
+//                     Image.asset(
+//                       'assets/logo1.jpg',
+//                       width: 150,
+//                       height: 130,
 //                     ),
-                
-                
-              
+
+//                     SizedBox(width: 30),
+
+//                     SizedBox(
+//                       width: 170,
+//                       height: 150,
+//                       child: InkWell(
+//                         // onTap: () async {
+//                         //   print("tapped");
+//                         //   final query = 'SELECT * FROM users';
+//                         //   final result = await DatabaseHelper.rawQuery(query);
+//                         //   print(result);
+
+//                         //   final companyName = result[0]['coname'];
+//                         //   print(companyName);
+
+                          
+//                         // },
+//                         child: ListTile(
+//                         //   onTap: () async {
+//                         //   print("tapped");
+//                         //   final query = 'SELECT * FROM users';
+//                         //   final result = await DatabaseHelper.rawQuery(query);
+//                         //   print(result);
+
+//                         //   final companyName = result[0]['coname'];
+//                         //   print(companyName);
+
+                          
+//                         // },
+//                           title: Padding(
+//                             padding: const EdgeInsets.only(top: 20),
+//                             child:
+//                              TextFormField(
+//                               onTap: () async {
+//                           print("tapped");
+//                           final query = 'SELECT * FROM users';
+//                           final result = await DatabaseHelper.rawQuery(query);
+//                           print(result);
+
+//                           final companyName = result[0]['coname'];
+//                           xyzController.text = companyName;
+
+//                           print(companyName);
+
+                          
+//                         },
+//                         controller: xyzController,
+                              
+//                               style: TextStyle(
+//                                   fontStyle: FontStyle.italic,
+//                                   fontWeight: FontWeight.bold,
+//                                   fontSize: 25,
+//                                   fontFamily: 'OpenSans'),
+//                               textAlign: TextAlign.start,
+//                             ),
+//                           ),
+//                           subtitle: Padding(
+//                             padding: const EdgeInsets.all(8.0),
+//                             child: TextFormField(
+//                               // "${companyName},\n$companyAddress\n$companyPhone\n$companyID\n$contactphone",
+//                               //companyName,
+//                               onTap: () async {
+//                           print("tapped");
+//                           final query = 'SELECT * FROM users';
+//                           final result = await DatabaseHelper.rawQuery(query);
+//                           print(result);
+
+//                           final companyADD = result[1]['coadd'];
+//                           ADDController.text = companyName;
+
+//                           print(companyADD);
+
+                          
+//                         },
+//                               style: TextStyle(
+//                                 fontStyle: FontStyle.normal,
+//                                 fontWeight: FontWeight.normal,
+//                                 fontFamily: 'OpenSans',
+//                                 fontSize: 15,
+//                               ),
+//                               textAlign: TextAlign.start,
+//                             ),
+                            
+//                           ),
+//                           //Text("",style: TextStyle(fontStyle: FontStyle.normal,fontWeight: FontWeight.normal,fontSize: 20),textAlign: TextAlign.start,),
+//                           //Text("      ",style: TextStyle(fontStyle: FontStyle.normal,fontWeight: FontWeight.normal,fontSize: 20),textAlign: TextAlign.start,),
+//                         ),
+//                       ),
+//                     ),
+//                   ],
+//                 ),
+//               ),
 //               Container(
 //                   color: Colors.white,
 //                   child: Column(
@@ -338,10 +315,15 @@
 //                   ],
 //                 ),
 //               )
-//             ]
+//             ],
 //           ),
-//         )));
-      
-    
+//         ),
+//       ),
+//     );
 //   }
 // }
+
+
+
+
+
