@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:project/customer.dart';
 import 'package:project/invoice%20demo.dart';
 import 'package:project/invoice_page.dart';
+import 'package:project/modalItem.dart';
 import 'package:project/report.dart';
 import 'package:project/transaction%20details.dart';
 import 'invoice exp.dart';
 
 import 'debit.dart';
 import 'invoice.dart';
+import 'item.dart';
 import 'login.dart';
 //import 'package:taxinvoice/navigation.dart';
 
@@ -28,7 +30,7 @@ class _MyDashboardState extends State<MyDashboard> {
   // final greenOpacity = Container(
   //   color: Color.fromARGB(197, 233, 140, 249),
   // );
-
+  List<Item> _item = [];
   @override
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;

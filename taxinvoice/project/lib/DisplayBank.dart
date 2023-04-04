@@ -61,7 +61,7 @@ appBar: AppBar(
                   SizedBox(height: 30,),
                   Column(
                     children: [
-                      Text('Customer Name:',style: TextStyle(
+                      Text('Bank Name:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
@@ -75,7 +75,7 @@ appBar: AppBar(
                 
                   Column(
                     children: [
-                      Text('Customer Address:',style: TextStyle(
+                      Text('Bank Address:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
@@ -89,7 +89,7 @@ appBar: AppBar(
                 
                   Column(
                     children: [
-                      Text('Customer Phone:',style: TextStyle(
+                      Text('Bank Acc number:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
@@ -102,7 +102,7 @@ appBar: AppBar(
                 
                 Column(
                     children: [
-                      Text('Customer Email:',style: TextStyle(
+                      Text('IFSC:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),

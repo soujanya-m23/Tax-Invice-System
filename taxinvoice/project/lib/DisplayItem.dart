@@ -1,33 +1,33 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
-import 'package:project/customer.dart';
+
+
+
 import 'package:project/invoice_page.dart';
-import 'package:project/modalItem.dart';
 
 import 'db_helper.dart';
-import 'modalCustomer.dart';
+import 'package:project/modalItem.dart';
+import 'package:project/item.dart';
 
-class DisplayCustomer extends StatefulWidget {
-  const DisplayCustomer({super.key});
+class DisplayItem extends StatefulWidget {
+  const DisplayItem({super.key});
 
   @override
-  State<DisplayCustomer> createState() => _DisplayCustomerState();
+  State<DisplayItem> createState() => _DisplayItemState();
 }
 
-class _DisplayCustomerState extends State<DisplayCustomer> {
-  List<Customer> _customer = [];
+class _DisplayItemState extends State<DisplayItem> {
+  List<Item> _item = [];
 
 @override
   void initState() {
     super.initState();
-    _fetchCustomers();
+    _fetchItems();
   }
 
-  Future<void> _fetchCustomers() async {
-    final cust = await DatabaseHelper.getCustomers();
+  Future<void> _fetchItems() async {
+    final itm = await DatabaseHelper.getItems();
     setState(() {
-      _customer = cust;
+      _item = itm.cast<Item>();
     });
   }
 
@@ -38,26 +38,26 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-          title: Text('Customers'),
+          title: Text('Items'),
         ),
         body: ListView.builder(
-          itemCount: _customer.length,
+          itemCount: _item.length,
           itemBuilder: (context, index) {
-            final user1 = _customer[index];
-             List<Item> _item = [];
+            final user3 = _item[index];
+            
             return ListTile(
               onTap: () async {
                 final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => CustomerForm(customers1: user1),
+                    builder: (context) => ItemTable(items: user3),
                   ),
                 );
                 if (result != null) {
-                  final updatedCustomer = result['user1'] as Customer;
-                  final user1Id = result['id1'] as int;
-                  await DatabaseHelper.updateCustomer(user1Id, updatedCustomer as Customer);
-                  await _fetchCustomers();
+                  final updatedItem = result['user3'] as Item;
+                  final user3Id = result['id3'] as int;
+                  await DatabaseHelper.updateItem(user3Id, updatedItem as Item);
+                  await _fetchItems();
                 }
               },
               // title: Text(user.coname),
@@ -69,13 +69,13 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   SizedBox(height: 30,),
                   Column(
                     children: [
-                      Text('Customer ID:',style: TextStyle(
+                      Text('Item id:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 10),
              
-                     Text('${user1.customerId}',style:const TextStyle(fontSize: 20)),
+                     Text('${user3.itemid}',style:const TextStyle(fontSize: 20)),
                     ],
                   ),
                 
@@ -83,13 +83,13 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 
                   Column(
                     children: [
-                      Text('Customer Name:',style: TextStyle(
+                      Text('Item Name:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 10),
              
-                     Text('${user1.cuname}',style:const TextStyle(fontSize: 20)),
+                     Text('${user3.iname}',style:const TextStyle(fontSize: 20)),
                     ],
                   ),
                 
@@ -97,13 +97,13 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 
                   Column(
                     children: [
-                      Text('Customer Address:',style: TextStyle(
+                      Text('Quantity:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                 
                       SizedBox(width: 20),
-                      Text('${user1.cuadd}',style:TextStyle(fontSize: 20)),
+                      Text('${user3.quantity}',style:TextStyle(fontSize: 20)),
                    ],
                   ),
                 
@@ -111,12 +111,12 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 
                   Column(
                     children: [
-                      Text('Customer Phone:',style: TextStyle(
+                      Text('Price:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.cuphone}',style:TextStyle(fontSize: 20),),
+                      Text('${user3.price}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
                 
@@ -124,44 +124,31 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                 
                 Column(
                     children: [
-                      Text('Customer Email:',style: TextStyle(
+                      Text('Customer Name:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.cuemail}',style:TextStyle(fontSize: 20),),
+                      Text('${user3.custname}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
                   SizedBox(height: 10),
-                  //  Column(
-                  //   children: [
-                  //     Text('COMPANY ID:',style: TextStyle(
-                  // fontWeight: FontWeight.bold,
-                  // fontSize: 20.0,
-                  // color: Colors.black,),),
-                  //     SizedBox(width: 20),
-                  //     Expanded(child: Text('${user1.company_id}',style:TextStyle(fontSize: 20),)),
-                  //   ],
-                  // ),
+                  
+                
                   Column(
                     children: [
-                      Text('Item ID:',style: TextStyle(
+                      Text('Customer ID:',style: TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 20.0,
                   color: Colors.black,),),
                       SizedBox(width: 20),
-                      Text('${user1.itemID}',style:TextStyle(fontSize: 20),),
+                      Text('${user3.custID}',style:TextStyle(fontSize: 20),),
                     ],
                   ),
                   SizedBox(height: 10),
                    Column(
                     children: [
-                      Text('Amount:',style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20.0,
-                  color: Colors.black,),),
-                      SizedBox(width: 20),
-                      Text('${user1.amt}',style:TextStyle(fontSize: 20),),
+                    
                       //////////////////////////////
                        IconButton(
                 icon: Icon(Icons.payment),
@@ -169,7 +156,7 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   final result = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => InvoicePage(/*customers1: user1,*/items: _item[index]),
+                    builder: (context) => InvoicePage(items: _item[index],),
                   ),
                 );
                 
@@ -214,8 +201,8 @@ class _DisplayCustomerState extends State<DisplayCustomer> {
                   );
                   if (confirmDelete != null && confirmDelete) {
                     
-                    await DatabaseHelper.deleteCustomer(user1.id1!);
-                    await _fetchCustomers();
+                    await DatabaseHelper.deleteItems(user3.id3!);
+                    await _fetchItems();
                   }
                 },
               ));

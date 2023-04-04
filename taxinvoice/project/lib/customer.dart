@@ -30,6 +30,9 @@ class _customerFormState extends State<CustomerForm> {
   TextEditingController _customeremail = TextEditingController();
   TextEditingController _companyID = TextEditingController();
   TextEditingController _itemID = TextEditingController();
+  TextEditingController _itemName = TextEditingController();
+    TextEditingController _quantityController = TextEditingController();
+      TextEditingController _priceController = TextEditingController();
   TextEditingController _amt = TextEditingController();
 
   var customer_val;
@@ -53,6 +56,12 @@ class _customerFormState extends State<CustomerForm> {
     //         ? widget.customers!.company_id.toString()
     //         : '');
     _itemID = TextEditingController(text: widget.customers1?.itemID ?? '');
+    _itemName = TextEditingController(text: widget.customers1?.itemName ?? '');
+    _quantityController=  TextEditingController(
+        text: widget.customers1?.quantity != null
+            ? widget.customers1!.amt.toString()
+            : '');
+    
     _amt = TextEditingController(
         text: widget.customers1?.amt != null
             ? widget.customers1!.amt.toString()
@@ -74,6 +83,8 @@ class _customerFormState extends State<CustomerForm> {
     _customeremail.dispose();
    // _companyID.dispose();
     _itemID.dispose();
+    _itemName.dispose();
+    _quantityController.dispose();
     _amt.dispose();
 
     // _bankName.dispose();
@@ -95,6 +106,9 @@ class _customerFormState extends State<CustomerForm> {
       cuemail: _customeremail.text,
       //company_id: int.tryParse(_companyID.text) ?? 0,
       itemID: _itemID.text,
+      itemName: _itemName.text,
+      quantity: _quantityController.text,
+      //price: _priceController.text,
       amt: double.tryParse(_amt.text) ?? 0,
       // bname: _bankName.text,
       // badd: _bankAddress.text,
@@ -143,6 +157,8 @@ class _customerFormState extends State<CustomerForm> {
           _customeremail.clear();
          // _companyID.clear();
           _itemID.clear();
+          _itemName.clear();
+          _quantityController.clear();
           _amt.clear();
           // _bankName.clear();
           // _bankAddress.clear();
@@ -173,6 +189,8 @@ class _customerFormState extends State<CustomerForm> {
           _customeremail.clear();
           //_companyID.clear();
           _itemID.clear();
+           _itemName.clear();
+          _quantityController.clear();
           _amt.clear();
           //  _bankName.clear();
           //  _bankAddress.clear();
@@ -346,6 +364,31 @@ class _customerFormState extends State<CustomerForm> {
             SizedBox(
               height: 25,
             ),
+             TextFormField(
+                    controller: _itemName,
+                    decoration: InputDecoration(
+                        labelText: 'Item Name',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter item name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
+                   SizedBox(
+              height: 25,
+            ),
+             TextFormField(
+                    controller: _quantityController,
+                    decoration: InputDecoration(
+                        labelText: 'Item Quantity',
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10),
+                            borderSide: BorderSide(color: Colors.black)),
+                        hintText: 'Enter quantity',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(10))),
+                  ),
             TextFormField(
               controller: _amt,
               decoration: InputDecoration(
@@ -385,6 +428,7 @@ class _customerFormState extends State<CustomerForm> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => DisplayCustomer()));
+                   
                 },
                 child: Text("see data inserted "),
               ),

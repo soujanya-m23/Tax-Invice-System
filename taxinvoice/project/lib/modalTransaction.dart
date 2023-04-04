@@ -24,7 +24,6 @@ Transactions({this.id2,required this.bname, required this.badd, required this.ba
   static Transactions fromMap(Map<String, dynamic> map) {
     return Transactions(
       id2: map['id2'],
-      
       bname : map['bname'],
       badd : map['badd'],
       bacc : map['bacc'],

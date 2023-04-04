@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:project/modalInvoice.dart';
+import 'package:project/modalItem.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 import 'customer.dart';
@@ -36,31 +37,36 @@ class DatabaseHelper {
         cuphone TEXT,
         cuemail TEXT,
         itemID TEXT,
+        itemName TEXT,
+        quantity INTEGER
+      
         amt REAL
         )
     """);
-    // //Transaction table----------------------------------------------------------
-    // await database.execute("""
-    //   CREATE TABLE bank_details(
-    //     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    //     bname TEXT,
-    //     badd TEXT,
-    //     bacc TEXT,
-    //     bifsc TEXT
-    //   )
-    // """);
+    //Transaction table----------------------------------------------------------
+    await database.execute("""
+      CREATE TABLE bankdetails(
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        bname TEXT,
+        badd TEXT,
+        bacc TEXT,
+        bifsc TEXT
+      )
+    """);
 
-    // await database.execute("""
-    //   CREATE TABLE invoices(
-    //     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    //     user_id INTEGER,
-    //     customer_id INTEGER,
-    //     total_amount REAL,
-    //     FOREIGN KEY (user_id) REFERENCES users(id),
-    //     FOREIGN KEY (customer_id) REFERENCES customers(id)
+    await database.execute(""" 
+      CREATE TABLE items(
+        id INTEGER PRIMARY KEY AUTOINCREMENT, 
+        itemid TEXT, 
+        iname TEXT,
+        quantity INTEGER,
+        price REAL,
+        custname TEXT,
+        custID TEXT
+        )
+    """);
 
-    //   )
-    // """);
+    
   }
 
   static Future<sql.Database> db() async {
@@ -161,6 +167,8 @@ class DatabaseHelper {
         cuphone: maps[i]['cuphone'],
         cuemail: maps[i]['cuemail'],
         itemID: maps[i]['itemID'],
+        itemName: maps[i]['itemName'],
+        quantity: maps[i]['quantity'],
         amt: maps[i]['amt'],
       );
     });
@@ -190,7 +198,7 @@ class DatabaseHelper {
   static Future<int> addTransaction(Transactions transaction) async {
     // insert data to table
     final dbClient = await db();
-    return dbClient.insert('bank_details', transaction.toMap(),
+    return dbClient.insert('bankdetails', transaction.toMap(),
         conflictAlgorithm:
             sql.ConflictAlgorithm.replace); // add conflictAlgorithm
   }
@@ -199,7 +207,7 @@ class DatabaseHelper {
     //fetching data to display details.....
     final dbClient = await db();
     final List<Map<String, dynamic>> maps =
-        await dbClient.query('bank_details');
+        await dbClient.query('bankdetails');
 
     return List.generate(maps.length, (i) {
       return Transactions(
@@ -211,35 +219,56 @@ class DatabaseHelper {
       );
     });
   }
-//-----------------------------Invoice details-----------------------------
+//-----------------------------Items details-----------------------------
+static Future<int> addItem(Item item) async {
+    // insert data to table
+    final dbClient = await db();
+    return dbClient.insert('items', item.toMap(),
+        conflictAlgorithm:
+            sql.ConflictAlgorithm.replace); // add conflictAlgorithm
+  }
 
-//  static Future<int> addInvoice(Company company) async {
-//     // insert data to table
-//     final dbClient = await db();
-//     return dbClient.insert('invoices', company.toMap(),
-//         conflictAlgorithm:
-//             sql.ConflictAlgorithm.replace); // add conflictAlgorithm
-//   }
+  static Future<List<Item>> getItems() async {
+    //fetching data to display details.....
+    final dbClient = await db();
 
-//   static Future<List<Invoice>> getInvoice() async {
-//     //fetching data to display details.....
-//     final dbClient = await db();
-//     final List<Map<String, dynamic>> maps = await dbClient.query('invoices');
+    final List<Map<String, dynamic>> maps = await dbClient.query('items');
 
-// return List.generate(maps.length, (i) {
-//       return Invoice(
-//         id4: maps[i]['id'],
+    return List.generate(maps.length, (i) {
+      return Item(
+        id3: maps[i]['id'],
+        itemid: maps[i]['itemid'],
 
-//         // iconame: maps[i]['iconame'],
-//         // icoadd: maps[i]['icoadd'],
-//         // icophone: maps[i]['icophone'],
-//         // iemail: maps[i]['iemail'],
-//         // icontactphone: maps[i]['icontactphone'],
-//         // icuname: maps[i]['icuname'],
-//         // icuadd: maps[i]['icuadd'],
-//         // icuemail: maps[i]['icuemail'],
-//         // icuphone: maps[i]['icuphone'],
+        iname: maps[i]['iname'],
+        quantity: maps[i]['quantity'],
+        price: maps[i]['price'],
+        custname: maps[i]['custname'],
+        custID: maps[i]['custID'],
+        
 
-//       );
-//     });
+        // gstnum: maps[i]['gstnum'],
+        // qnum: maps[i]['qnum'],
+        // qdate: maps[i]['qdate'],
+      );
+    });
+  }
+
+  static Future<int> updateItem(int id3, Item item) async {
+    final dbClient = await db();
+    return dbClient.update(
+      'items',
+      item.toMap(),
+      where: 'id = ?',
+      whereArgs: [id3],
+    );
+  }
+
+  static Future<int> deleteItems(int id3) async {
+    final dbClient = await db();
+    return await dbClient.delete(
+      'items',
+      where: 'id = ?',
+      whereArgs: [id3],
+    );
+  }
 }

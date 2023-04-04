@@ -6,16 +6,17 @@ class Customer {
     final String cuphone;
     
     final String itemID;
+    final String itemName;
+    final String quantity;
+    //final String price;
+
     final double amt;
-    // final String bname;
-    // final String badd;
-    // final String bacc;
-    // final String bifsc;
+   
     final String cuemail;
   
   
 
-  Customer({this.id1,required this.customerId, required this.cuname, required this.cuadd, required this.cuphone,required this.cuemail,required this.amt,required this.itemID});
+  Customer({this.id1,required this.customerId, required this.cuname, required this.cuadd, required this.cuphone,required this.cuemail,required this.amt,required this.itemID,required this.itemName,required this.quantity});
 
   Map<String, dynamic> toMap() {
     return {
@@ -28,6 +29,9 @@ class Customer {
       'cuemail' :cuemail,
       
       'itemID' : itemID,
+      'itemName': itemName,
+      'quantity': quantity,
+      //'price': price,
       'amt' : amt,
     };
   }
@@ -42,11 +46,12 @@ class Customer {
       cuphone: map['cuphone'],
       cuemail: map['cuemail'],
       itemID: map['itemID'],
+      itemName: map['itemName'],
+      quantity: map['quantity'],
+      //price: map['price'],
+      
       amt: map['amt'],
-      // bname : map['bname'],
-      // badd : map['badd'],
-      // bacc : map['bacc'],
-      // bifsc : map['bifsc'],
+     
 
 
 

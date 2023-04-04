@@ -1,40 +1,46 @@
 class Item {
-  final int? id3; // make id nullable
-  String name;
+  final int? id3;
+  String itemid;
+   // make id nullable
+  String iname;
   int quantity;
   double price;
-  String cuname;
-  String customerID;
+  String custname;
+  String custID;
 
   Item(
       {this.id3,
-      required this.name,
+      required this.itemid,
+      required this.iname,
       required this.quantity,
       required this.price,
-      required this.cuname,
-      required this.customerID,
+      required this.custname,
+      required this.custID,
       
       });
 
   Map<String, dynamic> toMap() {
     return {
-      if (id3 != null) 'id': id3, // only include id if it's not null
-      'name': name,
+      if (id3 != null) 'id': id3, 
+      'itemid' : itemid,
+      // only include id if it's not null
+      'iname': iname,
       'quantity': quantity,
       'price': price,
-      'cuname': cuname,
-      'customerID': customerID,
+      'custname': custname,
+      'custID': custID,
     };
   }
 
   static Item fromMap(Map<String, dynamic> map) {
     return Item(
       id3: map['id3'],
-      name: map['name'],
+      itemid: map['itemid'],
+      iname: map['iname'],
       quantity: map['quantity'],
       price: map['price'],
-       cuname: map['cuname'],
-       customerID: map['customerID'],
+       custname: map['custname'],
+       custID: map['custID'],
 
     );
   }
